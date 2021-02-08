@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="TiTorrent.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <NavigationView
+        x:Name="NavView"
+        IsBackButtonVisible="Collapsed"
+        IsPaneOpen="True"
+        IsPaneToggleButtonVisible="False"
+        Loaded="NavView_OnLoaded"
+        PaneTitle="TiTorrent"
+        SelectionChanged="NavView_OnSelectionChanged">
+
+        <NavigationView.MenuItems>
+            <NavigationViewItemHeader Content="TiTorrent" />
+
+            <NavigationViewItem
+                Content="Главное"
+                Icon="AllApps"
+                Tag="MainNavPage" />
+
+            <NavigationViewItemHeader Content="Статус" />
+
+            <NavigationViewItem
+                x:Uid="DownloadNavItem"
+                Content="Загружаются"
+                Icon="Download" />
+
+            <NavigationViewItem
+                x:Uid="AcceptNavItem"
+                Content="Завершено"
+                Icon="Accept"
+                Tag="Accept" />
+        </NavigationView.MenuItems>
+
+        <Frame x:Name="ContentFrame">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition />
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+    </NavigationView>
+</Page>
