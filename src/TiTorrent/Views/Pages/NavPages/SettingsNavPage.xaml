@@ -8,10 +8,5 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid>
-        <Button
-            Width="300"
-            HorizontalAlignment="Center"
-            Content="321" />
-    </Grid>
+    <Grid />
 </Page>

@@ -14,13 +14,11 @@ namespace TiTorrent
         private void NavView_OnLoaded(object sender, RoutedEventArgs e)
         {
             foreach (NavigationViewItemBase item in NavView.MenuItems)
-            {
                 if (item is NavigationViewItem && item.Tag.ToString() == "MainNavPage")
                 {
                     NavView.SelectedItem = item;
                     break;
                 }
-            }
         }
 
         private void NavView_OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -32,8 +30,8 @@ namespace TiTorrent
             }
             else
             {
-                var selectedItem = (NavigationViewItem)args.SelectedItem;
-                var selectedItemTag = (string)selectedItem.Tag;
+                var selectedItem = (NavigationViewItem) args.SelectedItem;
+                var selectedItemTag = (string) selectedItem.Tag;
 
                 switch (selectedItemTag)
                 {

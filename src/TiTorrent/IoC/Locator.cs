@@ -2,9 +2,9 @@
 
 namespace TiTorrent
 {
-    public class ViewModelLocator
+    public class Locator
     {
-        public ViewModelLocator()
+        public Locator()
         {
             MvxIoCProvider.Initialize();
             MvxIoCProvider.Instance.RegisterSingleton(new MainViewModel());

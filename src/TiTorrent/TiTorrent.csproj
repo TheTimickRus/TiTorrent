@@ -122,19 +122,19 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Utils.cs" />
-    <Compile Include="Convertors\PercentConverter.cs" />
-    <Compile Include="Convertors\SpeedConvertor.cs" />
-    <Compile Include="Convertors\SizeConvertor.cs" />
-    <Compile Include="IoC\ViewModelLocator.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\Convertors\PercentConverter.cs" />
+    <Compile Include="Views\Convertors\SpeedConvertor.cs" />
+    <Compile Include="Views\Convertors\SizeConvertor.cs" />
+    <Compile Include="IoC\Locator.cs" />
+    <Compile Include="Views\Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\TorrentModel.cs" />
-    <Compile Include="Pages\MainNavPage.xaml.cs">
+    <Compile Include="Views\Pages\NavPages\MainNavPage.xaml.cs">
       <DependentUpon>MainNavPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsNavPage.xaml.cs">
+    <Compile Include="Views\Pages\NavPages\SettingsNavPage.xaml.cs">
       <DependentUpon>SettingsNavPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,15 +160,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\MainNavPage.xaml">
+    <Page Include="Views\Pages\NavPages\MainNavPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\SettingsNavPage.xaml">
+    <Page Include="Views\Pages\NavPages\SettingsNavPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

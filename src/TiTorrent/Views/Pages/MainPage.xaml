@@ -29,12 +29,14 @@
             <NavigationViewItem
                 x:Uid="DownloadNavItem"
                 Content="Загружаются"
-                Icon="Download" />
+                Icon="Download"
+                IsEnabled="False" />
 
             <NavigationViewItem
                 x:Uid="AcceptNavItem"
                 Content="Завершено"
                 Icon="Accept"
+                IsEnabled="False"
                 Tag="Accept" />
         </NavigationView.MenuItems>
 
