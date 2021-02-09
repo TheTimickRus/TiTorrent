@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace TiTorrent
@@ -13,7 +14,7 @@ namespace TiTorrent
             {
                 FileTypeFilter =
                 {
-                    ".torrent"
+                    ".torrent", "*"
                 }
             };
 
@@ -25,6 +26,25 @@ namespace TiTorrent
 
 
             return await file.OpenStreamForReadAsync();
+        }
+
+        public static async Task<string> OpenFolder()
+        {
+            var folderPick = new FolderPicker
+            {
+                FileTypeFilter = { "*" }
+            };
+
+            var folder = await folderPick.PickSingleFolderAsync();
+
+            if (folder != null)
+            {
+                Windows.Storage.AccessCache
+                    .StorageApplicationPermissions
+                    .FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+            }
+
+            return folder?.Path;
         }
     }
 }

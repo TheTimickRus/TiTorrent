@@ -9,13 +9,12 @@
     xmlns:local="using:TiTorrent"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    DataContext="{Binding MainVm, Source={StaticResource Locator}}"
+    DataContext="{Binding MainVm, Source={StaticResource VmLocator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
         <local:PercentConverter x:Name="PercentConverter" />
-        <local:SizeConvertor x:Name="SizeConvertor" />
-        <local:SpeedConvertor x:Name="SpeedConvertor" />
+        <local:SizeConverter x:Name="SizeConvertor" />
     </Page.Resources>
 
     <Grid>
@@ -28,29 +27,41 @@
         <CommandBar
             Grid.Row="0"
             Margin="5"
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            DefaultLabelPosition="Right">
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
             <AppBarButton
                 Command="{Binding BAddCommand}"
                 Icon="Add"
                 Label="Добавить" />
 
+            <AppBarButton
+                Command="{Binding BAddCommand}"
+                Icon="Delete"
+                Label="Удалить" />
+
             <AppBarSeparator />
 
             <AppBarButton
                 Command="{Binding BStartCommand}"
                 Icon="Play"
-                Label="Запустить все" />
+                Label="Запустить" />
+
+            <AppBarButton
+                Command="{Binding BStopCommand}"
+                Icon="Pause"
+                Label="Пауза" />
 
             <AppBarButton
                 Command="{Binding BStopCommand}"
                 Icon="Stop"
-                Label="Остановить все" />
+                Label="Остановить" />
 
             <AppBarSeparator />
 
             <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Play" Label="Запустить все" />
+                <AppBarButton Icon="Stop" Label="Остановить все" />
+                <AppBarSeparator />
                 <AppBarButton Icon="Delete" Label="Удалить все" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
@@ -58,6 +69,11 @@
         <controls:DataGrid
             Grid.Row="1"
             AutoGenerateColumns="False"
+            BorderBrush="{ThemeResource SystemControlBackgroundListLowRevealBorderBrush}"
+            BorderThickness="1"
+            CanUserSortColumns="True"
+            DataContext="{Binding}"
+            GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             ItemsSource="{Binding TorrentModels}"
             SelectedItem="{Binding SelectedItem}"
@@ -75,7 +91,7 @@
                     Width="*"
                     Binding="{Binding Name}"
                     Header="Название" />
-                <controls:DataGridTextColumn Binding="{Binding Size, Converter={StaticResource SizeConvertor}}" Header="Размер" />
+                <controls:DataGridTextColumn Binding="{Binding Size, Converter={StaticResource SizeConvertor}, ConverterParameter=0}" Header="Размер" />
                 <controls:DataGridTextColumn Binding="{Binding State}" Header="Состояние" />
                 <controls:DataGridTemplateColumn Header="Прогресс">
                     <controls:DataGridTemplateColumn.CellTemplate>
@@ -94,11 +110,13 @@
                         </DataTemplate>
                     </controls:DataGridTemplateColumn.CellTemplate>
                 </controls:DataGridTemplateColumn>
-                <controls:DataGridTextColumn Binding="{Binding RemainingSize, Converter={StaticResource SizeConvertor}}" Header="Осталось" />
-                <controls:DataGridTextColumn Binding="{Binding DownloadSpeed, Converter={StaticResource SpeedConvertor}}" Header="Загрузка" />
-                <controls:DataGridTextColumn Binding="{Binding UploadSpeed, Converter={StaticResource SpeedConvertor}}" Header="Отдача" />
+                <controls:DataGridTextColumn Binding="{Binding RemainingSize, Converter={StaticResource SizeConvertor}, ConverterParameter=0}" Header="Осталось" />
+                <controls:DataGridTextColumn Binding="{Binding DownloadSpeed, Converter={StaticResource SizeConvertor}, ConverterParameter=1}" Header="Загрузка" />
+                <controls:DataGridTextColumn Binding="{Binding UploadSpeed, Converter={StaticResource SizeConvertor}, ConverterParameter=1}" Header="Отдача" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
+
+        <Grid
 
         <Pivot
             Grid.Row="2"

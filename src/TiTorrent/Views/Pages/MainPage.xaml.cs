@@ -1,6 +1,5 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using TiTorrent.Pages;
 
 namespace TiTorrent
 {

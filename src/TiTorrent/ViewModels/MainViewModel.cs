@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using MonoTorrent;
+using MonoTorrent.Client;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Timers;
@@ -6,62 +10,66 @@ using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
-using MonoTorrent;
-using MonoTorrent.Client;
-using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
+using TiTorrent.Helpers.AddTorrentHelper;
 
 namespace TiTorrent
 {
-    public class MainViewModel : MvxViewModel
+    public class MainViewModel : ViewModelBase
     {
-        private readonly ClientEngine _clientEngine = new ClientEngine();
-        private readonly Timer _progressTimer = new Timer(1000);
+        private readonly ClientEngine _clientEngine = new();
 
+        public ObservableCollection<TorrentModel> TorrentModels { get; set; } = new();
+        public TorrentModel SelectedItem { get; set; } = null;
 
         public MainViewModel()
         {
-            // Запускаем таймер для обновления информации
-            _progressTimer.Elapsed += ProgressTimerOnElapsed;
-            _progressTimer.Start();
+            // Обновляем данные по таймеру
+            var updater = new Timer(1000);
+            updater.Elapsed += ProgressTimerOnElapsed;
+            updater.Start();
         }
 
-
-        public ObservableCollection<TorrentModel> TorrentModels { get; set; } =
-            new ObservableCollection<TorrentModel>();
-
-        public TorrentModel SelectedItem { get; set; }
-
-
-        public ICommand BAddCommand => new MvxAsyncCommand(async () =>
+        private void ProgressTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
-            var file = await Utils.OpenFile();
-            if (file == null) return;
+            _clientEngine.Torrents
+                .ToList()
+                .ForEach(async manager =>
+                {
+                    await CoreApplication.MainView.Dispatcher
+                        .RunAsync(CoreDispatcherPriority.Normal, 
+                            () => TorrentModels.First(model => model.Manager.Equals(manager)).Update(manager));
+                });
+        }
 
-            var torrent = await Torrent.LoadAsync(file);
-            var tm = new TorrentManager(torrent, $"{ApplicationData.Current.LocalFolder.Path}\\{torrent.Name}");
-            if (_clientEngine.Torrents.ToList().Find(manager => manager.Equals(tm)) != null) return;
+        public ICommand BAddCommand => new RelayCommand(async () =>
+        {
+            TorrentManager torrentManager = null;
+            Messenger.Default.Register(this, new Action<TorrentManager>(manager => torrentManager = manager));
+
+            await new AddTorrent().ShowAsync();
+
+            // Если не выбрали торрент - выходим
+            if (torrentManager == null)
+            {
+                return;
+            }
+
+            // Проверка на то, если ли данный торрент в списке загрузок
+            if (_clientEngine.Torrents.ToList().Find(manager => manager.Equals(torrentManager)) != null)
+            {
+                return;
+            }
 
             // Добавление торрента в список
-            TorrentModels.Add(new TorrentModel(tm, TorrentModels.Count + 1));
+            TorrentModels.Add(new TorrentModel(torrentManager, TorrentModels.Count + 1));
 
             // Регистрация нового торрента
-            await _clientEngine.Register(tm);
+            await _clientEngine.Register(torrentManager);
         });
 
-        public ICommand BStartCommand => new MvxAsyncCommand(async () => { await _clientEngine.StartAllAsync(); });
+        public ICommand BStartCommand => new RelayCommand(async () => await _clientEngine.StartAllAsync());
 
-        public ICommand BStopCommand => new MvxAsyncCommand(async () => { await _clientEngine.StopAllAsync(); });
-
-
-        private async void ProgressTimerOnElapsed(object sender, ElapsedEventArgs e)
-        {
-            foreach (var torrentModel in _clientEngine.Torrents)
-                await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                    () =>
-                    {
-                        TorrentModels.First(model => model.Name.Equals(torrentModel.Torrent.Name)).Update(torrentModel);
-                    });
-        }
+        public ICommand BStopCommand => new RelayCommand(async () => await _clientEngine.StopAllAsync());
     }
 }
