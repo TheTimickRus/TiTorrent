@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TiTorrent
+namespace TiTorrent.Models
 {
     public class Model : INotifyPropertyChanged
     {

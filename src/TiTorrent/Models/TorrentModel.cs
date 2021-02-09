@@ -1,6 +1,6 @@
 ﻿using MonoTorrent.Client;
 
-namespace TiTorrent
+namespace TiTorrent.Models
 {
     public class TorrentModel : Model
     {

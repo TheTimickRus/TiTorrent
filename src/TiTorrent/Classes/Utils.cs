@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace TiTorrent
+namespace TiTorrent.Classes
 {
     public static class Utils
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using MonoTorrent;
+using TiTorrent.Models;
 
 namespace TiTorrent.Helpers.AddTorrentHelper.Models
 {

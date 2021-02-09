@@ -1,19 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using MonoTorrent;
+using GalaSoft.MvvmLight.Messaging;
 using MonoTorrent.Client;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Timers;
 using System.Windows.Input;
-using Windows.ApplicationModel.Core;
-using Windows.Storage;
-using Windows.UI.Core;
-using GalaSoft.MvvmLight.Messaging;
 using TiTorrent.Helpers.AddTorrentHelper;
+using TiTorrent.Models;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 
-namespace TiTorrent
+namespace TiTorrent.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {

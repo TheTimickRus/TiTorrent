@@ -1,9 +1,9 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
-using MonoTorrent.Client;
 using TiTorrent.Helpers.AddTorrentHelper.ViewModels;
+using TiTorrent.ViewModels;
 
-namespace TiTorrent
+namespace TiTorrent.IoC
 {
     public class Locator
     {
@@ -16,8 +16,5 @@ namespace TiTorrent
         }
 
         public MainViewModel MainVm => SimpleIoc.Default.GetInstance<MainViewModel>();
-        public AddTorrentViewModel AddTorrentVm => SimpleIoc.Default.GetInstance<AddTorrentViewModel>();
-
-
     }
 }

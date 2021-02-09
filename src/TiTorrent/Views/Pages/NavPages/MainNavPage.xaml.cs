@@ -1,4 +1,4 @@
-﻿namespace TiTorrent
+﻿namespace TiTorrent.Views
 {
     public sealed partial class MainNavPage
     {

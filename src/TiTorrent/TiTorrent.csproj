@@ -201,6 +201,12 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.0.0-preview4</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>7.0.0-preview4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.0.0-preview4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
       <Version>7.0.0-preview4</Version>
     </PackageReference>
@@ -221,9 +227,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Package.appinstaller" />
     <None Include="TiTorrent_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Languages\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

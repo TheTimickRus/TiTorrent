@@ -1,13 +1,14 @@
-﻿using System;
-using System.Windows.Input;
-using Windows.Storage;
-using Windows.UI.Popups;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MonoTorrent;
 using MonoTorrent.Client;
+using System;
+using System.Windows.Input;
+using TiTorrent.Classes;
 using TiTorrent.Helpers.AddTorrentHelper.Models;
+using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace TiTorrent.Helpers.AddTorrentHelper.ViewModels
 {

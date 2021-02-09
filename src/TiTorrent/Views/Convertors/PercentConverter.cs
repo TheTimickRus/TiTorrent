@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace TiTorrent
+namespace TiTorrent.Views
 {
     public class PercentConverter : IValueConverter
     {

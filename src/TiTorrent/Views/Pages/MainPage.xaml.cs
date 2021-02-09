@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace TiTorrent
+namespace TiTorrent.Views
 {
     public sealed partial class MainPage
     {

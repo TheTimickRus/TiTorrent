@@ -2,11 +2,11 @@
     x:Class="TiTorrent.Helpers.AddTorrentHelper.AddTorrent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:convertors="using:TiTorrent.Helpers.AddTorrentHelper.Convertors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:TiTorrent"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:TiTorrent.Helpers.AddTorrentHelper.ViewModels"
+    xmlns:views="using:TiTorrent.Views"
     Title="Добавление нового файла"
     PrimaryButtonCommand="{Binding BPrimaryCommand}"
     PrimaryButtonText="ОК"
@@ -19,7 +19,7 @@
     </ContentControl.DataContext>
 
     <ContentControl.Resources>
-        <local:SizeConverter x:Name="SizeConverter" />
+        <views:SizeConverter x:Name="SizeConverter" />
     </ContentControl.Resources>
 
     <StackPanel>
