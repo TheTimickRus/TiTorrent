@@ -17,9 +17,6 @@ namespace TiTorrent.Core.Models
         public long UploadSpeed { get; set; }
 
 
-        public DataGridModel()
-        { }
-
         public DataGridModel(TorrentManager manager)
         {
             Hash = manager.InfoHash.ToHex();

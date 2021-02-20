@@ -30,6 +30,8 @@ namespace TiTorrent.Core.ViewModels
         public ObservableCollection<DataGridModel> TorrentsCollection { get; set; } = new();
         public DataGridModel SelectedTorrent { get; set; }
 
+        public PivotModel MainPivotModel { get; set; }
+
         #endregion
 
         #region PrivateProps
@@ -166,6 +168,19 @@ namespace TiTorrent.Core.ViewModels
             }
         }, () => SelectedTorrent != null);
 
+        public ICommand BPauseCommand => new RelayCommand(async () =>
+        {
+            try
+            {
+                var manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+                await manager.PauseAsync();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error!").ShowAsync();
+            }
+        }, () => SelectedTorrent != null);
+
         public ICommand BStopCommand => new RelayCommand(async () =>
         {
             try
@@ -178,7 +193,21 @@ namespace TiTorrent.Core.ViewModels
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
             }
         }, () => SelectedTorrent != null);
-        
+
+        public ICommand FOpenFolderCommand => new RelayCommand(async () =>
+        {
+            try
+            {
+                var manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+
+                throw new Exception("Не реализовано :(");
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error!").ShowAsync();
+            }
+        }, () => SelectedTorrent != null);
+
         #endregion
 
         #region Methods
@@ -190,12 +219,45 @@ namespace TiTorrent.Core.ViewModels
                 _timer.Interval = TimeSpan.FromSeconds(1);
                 _timer.Tick += (_, _) =>
                 {
-                    _clientEngine?.Torrents?
+                    if (_clientEngine == null || _clientEngine.Torrents.Count == 0)
+                    {
+                        SelectedTorrent = null;
+                        MainPivotModel = null;
+                        
+                        return;
+                    }
+
+                    // Обновляем данные в ListView
+                    _clientEngine.Torrents
                         .ToList()
-                        .ForEach(manager => TorrentsCollection
-                            .FirstOrDefault(model => model.Hash.Equals(manager.InfoHash.ToHex()))?
-                            .UpdateProp(manager));
+                        .ForEach(manager =>
+                        {
+                            TorrentsCollection
+                                .FirstOrDefault(model => model.Hash.Equals(manager.InfoHash.ToHex()))?
+                                .UpdateProp(manager);
+
+                        });
+
+                    // Обновляем данные в Pivot
+                    if (SelectedTorrent != null)
+                    {
+                        var manager = _clientEngine.Torrents.First(m => m.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+
+                        if (MainPivotModel != null && MainPivotModel.Hash == SelectedTorrent.Hash)
+                        {
+                            MainPivotModel.UpdateProp(manager);
+                        }
+                        else
+                        {
+                            MainPivotModel = new PivotModel(manager);
+                        }
+                    }
+                    else
+                    {
+                        MainPivotModel = null;
+                    }
                 };
+
                 _timer.Start();
             }
             else

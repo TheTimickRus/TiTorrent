@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:myConverters="using:TiTorrent.Shared.Converters"
-    xmlns:vm="using:TiTorrent.Core.ViewModels"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding MainVm, Source={StaticResource VmLocator}}"
     mc:Ignorable="d">
@@ -14,6 +13,7 @@
     <Page.Resources>
         <myConverters:SizeConverter x:Name="SizeConverter" />
         <myConverters:PercentConverter x:Name="PercentConverter" />
+        <myConverters:FullPathToFileNameConverter x:Name="FullPathToFileNameConverter" />
 
         <MenuFlyout x:Key="ListViewItemFlyout">
             <MenuFlyout.Items>
@@ -21,6 +21,10 @@
                     Command="{x:Bind _viewModel.BStartCommand}"
                     Icon="Play"
                     Text="Запустить" />
+                <MenuFlyoutItem
+                    Command="{x:Bind _viewModel.BPauseCommand}"
+                    Icon="Play"
+                    Text="Пауза" />
                 <MenuFlyoutItem
                     Command="{x:Bind _viewModel.BStopCommand}"
                     Icon="Stop"
@@ -35,7 +39,10 @@
 
                 <MenuFlyoutSeparator />
 
-                <MenuFlyoutItem Icon="Folder" Text="Перейти к папке" />
+                <MenuFlyoutItem
+                    Command="{x:Bind _viewModel.FOpenFolderCommand}"
+                    Icon="Folder"
+                    Text="Открыть в проводнике" />
             </MenuFlyout.Items>
         </MenuFlyout>
     </Page.Resources>
@@ -45,7 +52,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <CommandBar
@@ -73,6 +80,12 @@
                 Command="{Binding BStartCommand}"
                 Icon="Play"
                 Label="Запустить"
+                Style="{ThemeResource AppBarButtonRevealStyle}" />
+
+            <AppBarButton
+                Command="{Binding BPauseCommand}"
+                Icon="Pause"
+                Label="Пауза"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
@@ -143,6 +156,239 @@
             Background="{ThemeResource SystemControlAcrylicElementBrush}"
             Foreground="{ThemeResource SystemControlAcrylicWindowBrush}" />
 
-        <Pivot Grid.Row="3" />
+        <Pivot Grid.Row="3">
+            <Pivot.Items>
+                <PivotItem Header="Информация">
+                    <StackPanel>
+                        <ProgressBar
+                            Height="23"
+                            Margin="0,5,0,5"
+                            Value="{Binding SelectedTorrent.Progress}" />
+
+                        <controls:Expander
+                            Margin="0,5,0,0"
+                            HorizontalContentAlignment="Stretch"
+                            Header="Торрент"
+                            IsExpanded="True">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel
+                                    Grid.Column="0"
+                                    Margin="5"
+                                    VerticalAlignment="Center">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Активен: " />
+                                        <TextBlock Text="{Binding MainPivotModel.ActiveTime}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Загружено: " />
+                                        <TextBlock Text="{Binding MainPivotModel.DownloadSize, Converter={StaticResource SizeConverter}}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Загрузка: " />
+                                        <TextBlock Text="{Binding MainPivotModel.DownloadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="5"
+                                    VerticalAlignment="Center">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Активен: " />
+                                        <TextBlock Text="{Binding MainPivotModel.LeftTime}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Отдано: " />
+                                        <TextBlock Text="{Binding MainPivotModel.UploadSize, Converter={StaticResource SizeConverter}}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Отдача: " />
+                                        <TextBlock Text="{Binding MainPivotModel.UploadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Margin="5"
+                                    VerticalAlignment="Center">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Соединений: " />
+                                        <TextBlock Text="{Binding MainPivotModel.ConnectionCount}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Сиды: " />
+                                        <TextBlock Text="{Binding MainPivotModel.SeedsCount}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Пиры: " />
+                                        <TextBlock Text="{Binding MainPivotModel.PeersCount}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+                            </Grid>
+                        </controls:Expander>
+
+                        <controls:Expander
+                            Margin="0,0,0,5"
+                            HorizontalContentAlignment="Stretch"
+                            Header="Дополнительно"
+                            IsExpanded="True">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel
+                                    Grid.Column="0"
+                                    Margin="5"
+                                    VerticalAlignment="Center">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Общий размер: " />
+                                        <TextBlock Text="{Binding MainPivotModel.TotalSize, Converter={StaticResource SizeConverter}}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Дата добавления: " />
+                                        <TextBlock Text="{Binding MainPivotModel.DateAdded}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Хеш: " />
+                                        <TextBlock Text="{Binding MainPivotModel.Hash}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Путь: " />
+                                        <TextBlock Text="{Binding MainPivotModel.SavePath}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Комментарий: " />
+                                        <TextBlock Text="{Binding MainPivotModel.Comment}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="5"
+                                    VerticalAlignment="Top">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Части: " />
+                                        <TextBlock Text="{Binding MainPivotModel.PieceCount}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Дата завершения: " />
+                                        <TextBlock Text="{Binding MainPivotModel.DateCompletion}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Margin="5"
+                                    VerticalAlignment="Top">
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Создан в: " />
+                                        <TextBlock Text="{Binding MainPivotModel.CreateIn}" />
+                                    </controls:UniformGrid>
+
+                                    <controls:UniformGrid Column="2" Rows="1">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Text="Дата создания: " />
+                                        <TextBlock Text="{Binding MainPivotModel.DateCreate}" />
+                                    </controls:UniformGrid>
+                                </StackPanel>
+                            </Grid>
+                        </controls:Expander>
+                    </StackPanel>
+                </PivotItem>
+
+                <PivotItem Header="Файлы">
+                    <TreeView ItemsSource="{Binding MainPivotModel.TorrentFiles}">
+                        <TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <SymbolIcon Margin="5" Symbol="OpenFile" />
+                                    <TextBlock Margin="5" Text="{Binding FullPath, Converter={StaticResource FullPathToFileNameConverter}}" />
+                                    <ProgressBar
+                                        Width="100"
+                                        Height="23"
+                                        Margin="5"
+                                        Value="{Binding BitField.PercentComplete}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </PivotItem>
+            </Pivot.Items>
+        </Pivot>
     </Grid>
 </Page>
