@@ -120,4 +120,10 @@
   <data name="NavItem0.Content" xml:space="preserve">
     <value>Главное</value>
   </data>
+  <data name="NavItem1.Content" xml:space="preserve">
+    <value>Загружаются</value>
+  </data>
+  <data name="NavItem2.Content" xml:space="preserve">
+    <value>Раздаются</value>
+  </data>
 </root>

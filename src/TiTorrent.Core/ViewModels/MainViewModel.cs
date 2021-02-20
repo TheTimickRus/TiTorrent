@@ -178,31 +178,7 @@ namespace TiTorrent.Core.ViewModels
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
             }
         }, () => SelectedTorrent != null);
-
-        public ICommand BStartAllCommand => new RelayCommand(async () =>
-        {
-            try
-            {
-                await _clientEngine.StartAllAsync();
-            }
-            catch (Exception ex)
-            {
-                await new MessageDialog(ex.Message, "Error!").ShowAsync();
-            }
-        }, () => TorrentsCollection.Count > 0);
-
-        public ICommand BStopAllCommand => new RelayCommand(async () =>
-        {
-            try
-            {
-                await _clientEngine.StopAllAsync();
-            }
-            catch (Exception ex)
-            {
-                await new MessageDialog(ex.Message, "Error!").ShowAsync();
-            }
-        }, () => TorrentsCollection.Count > 0);
-
+        
         #endregion
 
         #region Methods

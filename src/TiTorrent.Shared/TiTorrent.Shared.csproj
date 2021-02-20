@@ -129,10 +129,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.10</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="MonoTorrent">
-      <Version>2.0.0-alpha.unstable.rev0112</Version>
+      <Version>2.0.0-alpha.unstable.rev0122</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

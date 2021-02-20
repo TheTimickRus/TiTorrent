@@ -5,8 +5,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:myConverters="using:TiTorrent.Shared.Converters"
+    xmlns:vm="using:TiTorrent.Core.ViewModels"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding MainVm, Source={StaticResource VmLocator}}"
     mc:Ignorable="d">
@@ -14,6 +14,30 @@
     <Page.Resources>
         <myConverters:SizeConverter x:Name="SizeConverter" />
         <myConverters:PercentConverter x:Name="PercentConverter" />
+
+        <MenuFlyout x:Key="ListViewItemFlyout">
+            <MenuFlyout.Items>
+                <MenuFlyoutItem
+                    Command="{x:Bind _viewModel.BStartCommand}"
+                    Icon="Play"
+                    Text="Запустить" />
+                <MenuFlyoutItem
+                    Command="{x:Bind _viewModel.BStopCommand}"
+                    Icon="Stop"
+                    Text="Остановить" />
+
+                <MenuFlyoutSeparator />
+
+                <MenuFlyoutItem
+                    Command="{x:Bind _viewModel.BDeleteCommand}"
+                    Icon="Delete"
+                    Text="Удалить" />
+
+                <MenuFlyoutSeparator />
+
+                <MenuFlyoutItem Icon="Folder" Text="Перейти к папке" />
+            </MenuFlyout.Items>
+        </MenuFlyout>
     </Page.Resources>
 
     <Grid>
@@ -28,43 +52,34 @@
             Grid.Row="0"
             Margin="5"
             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            Foreground="{ThemeResource SystemControlAcrylicWindowBrush}">
+            DefaultLabelPosition="Right"
+            OverflowButtonVisibility="Collapsed">
 
             <AppBarButton
                 Command="{Binding BAddCommand}"
                 Icon="Add"
-                Label="Добавить" />
+                Label="Добавить"
+                Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
                 Command="{Binding BDeleteCommand}"
                 Icon="Delete"
-                Label="Удалить" />
+                Label="Удалить"
+                Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarSeparator />
 
             <AppBarButton
                 Command="{Binding BStartCommand}"
                 Icon="Play"
-                Label="Запустить" />
+                Label="Запустить"
+                Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
                 Command="{Binding BStopCommand}"
                 Icon="Stop"
-                Label="Остановить" />
-
-            <AppBarSeparator />
-
-            <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    Command="{Binding BStartAllCommand}"
-                    Icon="Play"
-                    Label="Запустить все" />
-
-                <AppBarButton
-                    Command="{Binding BStopAllCommand}"
-                    Icon="Stop"
-                    Label="Остановить все" />
-            </CommandBar.SecondaryCommands>
+                Label="Остановить"
+                Style="{ThemeResource AppBarButtonRevealStyle}" />
         </CommandBar>
 
         <ListView
@@ -80,7 +95,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <StackPanel ContextFlyout="{StaticResource ListViewItemFlyout}">
                         <TextBlock
                             Margin="5"
                             FontSize="16"
@@ -114,7 +129,10 @@
                             </StackPanel>
                         </Grid>
 
-                        <ProgressBar Margin="5" Value="{Binding Progress}" />
+                        <ProgressBar
+                            Margin="5"
+                            ContextFlyout="{StaticResource ListViewItemFlyout}"
+                            Value="{Binding Progress}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

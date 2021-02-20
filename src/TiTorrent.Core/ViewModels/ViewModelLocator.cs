@@ -1,12 +1,15 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
-using TiTorrent.Core.ViewModels;
 
-namespace TiTorrent.Core.IoC
+namespace TiTorrent.Core.ViewModels
 {
-    public class VmLocator
+    [Windows.UI.Xaml.Data.Bindable]
+    public class ViewModelLocator
     {
-        public VmLocator()
+        private static ViewModelLocator _instance;
+        public static ViewModelLocator Instance => _instance ??= new ViewModelLocator();
+
+        public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();

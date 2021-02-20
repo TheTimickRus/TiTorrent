@@ -7,7 +7,6 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using TiTorrent.Shared;
 
 namespace TiTorrent.UWP
 {
@@ -39,10 +38,11 @@ namespace TiTorrent.UWP
                 Window.Current.Activate();
             }
 
+            // Содержимое поверх TitleBar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         }
 
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private static void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }

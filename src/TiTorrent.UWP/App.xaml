@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TiTorrent.UWP"
-    xmlns:vm="using:TiTorrent.Core.IoC">
+    xmlns:viewModels="using:TiTorrent.Core.ViewModels">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="Styles/NavViewResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <vm:VmLocator x:Name="VmLocator" />
+            <viewModels:ViewModelLocator x:Key="VmLocator" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
