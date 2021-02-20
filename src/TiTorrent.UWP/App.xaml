@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="TiTorrent.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TiTorrent.UWP"
+    xmlns:vm="using:TiTorrent.Core.IoC">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--  Microsoft  -->
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
+                <!--  TheTimickRus  -->
+                <ResourceDictionary Source="Styles/NavViewResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <vm:VmLocator x:Name="VmLocator" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

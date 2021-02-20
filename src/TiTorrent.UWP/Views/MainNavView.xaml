@@ -1,0 +1,130 @@
+﻿<Page
+    x:Class="TiTorrent.UWP.Views.MainNavView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:myConverters="using:TiTorrent.Shared.Converters"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding MainVm, Source={StaticResource VmLocator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <myConverters:SizeConverter x:Name="SizeConverter" />
+        <myConverters:PercentConverter x:Name="PercentConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="250" />
+        </Grid.RowDefinitions>
+
+        <CommandBar
+            Grid.Row="0"
+            Margin="5"
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            Foreground="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+            <AppBarButton
+                Command="{Binding BAddCommand}"
+                Icon="Add"
+                Label="Добавить" />
+
+            <AppBarButton
+                Command="{Binding BDeleteCommand}"
+                Icon="Delete"
+                Label="Удалить" />
+
+            <AppBarSeparator />
+
+            <AppBarButton
+                Command="{Binding BStartCommand}"
+                Icon="Play"
+                Label="Запустить" />
+
+            <AppBarButton
+                Command="{Binding BStopCommand}"
+                Icon="Stop"
+                Label="Остановить" />
+
+            <AppBarSeparator />
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    Command="{Binding BStartAllCommand}"
+                    Icon="Play"
+                    Label="Запустить все" />
+
+                <AppBarButton
+                    Command="{Binding BStopAllCommand}"
+                    Icon="Stop"
+                    Label="Остановить все" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding TorrentsCollection}"
+            SelectedItem="{Binding SelectedTorrent, Mode=TwoWay}">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="5"
+                            FontSize="16"
+                            Text="{Binding Name}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <TextBlock Margin="5">
+                                    <Run Text="{Binding DownloadedSize, Converter={StaticResource SizeConverter}}" />
+                                    <Run Text=" из " />
+                                    <Run Text="{Binding TotalSize, Converter={StaticResource SizeConverter}}" />
+                                    <Run Text=" | " />
+                                    <Run Text="{Binding Progress, Converter={StaticResource PercentConverter}}" />
+                                </TextBlock>
+
+                                <SymbolIcon Margin="5" Symbol="Download" />
+                                <TextBlock Margin="5" Text="{Binding DownloadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+
+                                <SymbolIcon Margin="5" Symbol="Upload" />
+                                <TextBlock Margin="5" Text="{Binding UploadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <SymbolIcon Margin="5" Symbol="List" />
+                                <TextBlock Margin="5" Text="{Binding State}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <ProgressBar Margin="5" Value="{Binding Progress}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <controls:GridSplitter
+            Grid.Row="2"
+            Background="{ThemeResource SystemControlAcrylicElementBrush}"
+            Foreground="{ThemeResource SystemControlAcrylicWindowBrush}" />
+
+        <Pivot Grid.Row="3" />
+    </Grid>
+</Page>
