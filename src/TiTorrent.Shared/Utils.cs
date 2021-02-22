@@ -44,6 +44,8 @@ namespace TiTorrent.Shared
                 return null;
             }
 
+            StorageApplicationPermissions.FutureAccessList.Add(file);
+
             AppState.CopyTorrent(file);
 
             return await file.OpenStreamForReadAsync();
@@ -60,7 +62,7 @@ namespace TiTorrent.Shared
 
             if (folder != null)
             {
-                StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+                StorageApplicationPermissions.FutureAccessList.Add(folder);
                 return folder.Path;
             }
 

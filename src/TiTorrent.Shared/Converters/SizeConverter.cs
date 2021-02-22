@@ -17,7 +17,7 @@ namespace TiTorrent.Shared.Converters
                 return Utils.ConvertComputerValues(size);
             }
 
-            return string.Empty;
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

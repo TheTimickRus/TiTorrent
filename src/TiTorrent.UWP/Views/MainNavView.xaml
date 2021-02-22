@@ -5,6 +5,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mtConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:myConverters="using:TiTorrent.Shared.Converters"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding MainVm, Source={StaticResource VmLocator}}"
@@ -14,6 +15,8 @@
         <myConverters:SizeConverter x:Name="SizeConverter" />
         <myConverters:PercentConverter x:Name="PercentConverter" />
         <myConverters:FullPathToFileNameConverter x:Name="FullPathToFileNameConverter" />
+        <mtConverters:StringFormatConverter x:Name="StringFormatConverter" />
+        <mtConverters:FormatStringConverter x:Name="FormatStringConverter" />
 
         <MenuFlyout x:Key="ListViewItemFlyout">
             <MenuFlyout.Items>
@@ -122,18 +125,18 @@
 
                             <StackPanel Grid.Column="0" Orientation="Horizontal">
                                 <TextBlock Margin="5">
-                                    <Run Text="{Binding DownloadedSize, Converter={StaticResource SizeConverter}}" />
+                                    <Run Text="{Binding DownloadedSize}" />
                                     <Run Text=" из " />
-                                    <Run Text="{Binding TotalSize, Converter={StaticResource SizeConverter}}" />
+                                    <Run Text="{Binding TotalSize}" />
                                     <Run Text=" | " />
-                                    <Run Text="{Binding Progress, Converter={StaticResource PercentConverter}}" />
+                                    <Run Text="{Binding Progress, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
                                 </TextBlock>
 
                                 <SymbolIcon Margin="5" Symbol="Download" />
-                                <TextBlock Margin="5" Text="{Binding DownloadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                <TextBlock Margin="5" Text="{Binding DownloadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
 
                                 <SymbolIcon Margin="5" Symbol="Upload" />
-                                <TextBlock Margin="5" Text="{Binding UploadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                <TextBlock Margin="5" Text="{Binding UploadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -195,7 +198,7 @@
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
                                             Text="Загружено: " />
-                                        <TextBlock Text="{Binding MainPivotModel.DownloadSize, Converter={StaticResource SizeConverter}}" />
+                                        <TextBlock Text="{Binding MainPivotModel.DownloadSize}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
@@ -224,7 +227,7 @@
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
                                             Text="Отдано: " />
-                                        <TextBlock Text="{Binding MainPivotModel.UploadSize, Converter={StaticResource SizeConverter}}" />
+                                        <TextBlock Text="{Binding MainPivotModel.UploadSize}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
@@ -289,7 +292,7 @@
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
                                             Text="Общий размер: " />
-                                        <TextBlock Text="{Binding MainPivotModel.TotalSize, Converter={StaticResource SizeConverter}}" />
+                                        <TextBlock Text="{Binding MainPivotModel.TotalSize}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">

@@ -329,6 +329,11 @@ namespace TiTorrent.Core.ViewModels
                     }
                 });
 
+                if (!Directory.Exists(Path.GetDirectoryName(DhtNodesPath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(DhtNodesPath));
+                }
+
                 await File.WriteAllBytesAsync(DhtNodesPath, await _clientEngine.DhtEngine.SaveNodesAsync());
                 await File.WriteAllBytesAsync(FastResumePath, fastResume.Encode());
             }
