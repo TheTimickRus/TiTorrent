@@ -17,9 +17,12 @@ using TiTorrent.Dialogs.Views;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Microsoft.Toolkit.Uwp.Notifications;
+using TiTorrent.Shared.Notification;
 
 namespace TiTorrent.Core.ViewModels
 {
@@ -70,6 +73,12 @@ namespace TiTorrent.Core.ViewModels
 
             // Запускаем таймер обновления
             MainTimer();
+
+            // События
+            _clientEngine.CriticalException += async (_, args) =>
+            {
+                await new MessageDialog(args.Exception.Message, "Error!").ShowAsync();
+            };
         }
         
         #endregion
@@ -99,8 +108,19 @@ namespace TiTorrent.Core.ViewModels
                 TorrentsCollection.Add(new DataGridModel(manager));
                 await _clientEngine.Register(manager);
 
+                // Уведомляем пользователя о изменении состояния
+                manager.TorrentStateChanged += (_, args) =>
+                {
+                    var ns = args.NewState;
+
+                    if (ns == TorrentState.Downloading || ns == TorrentState.Stopped || ns == TorrentState.Paused)
+                    {
+                        ToastNotificationEx.ShowInfo($"{args.TorrentManager.Torrent.Name}", $"{args.OldState} -> {args.NewState}");
+                    }
+                };
+
                 // Начинаем загрузку
-                await AddDialogModel.Manager.StartAsync();
+                await manager.StartAsync();
             }
             catch (Exception ex)
             {

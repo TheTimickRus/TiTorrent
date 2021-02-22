@@ -21,31 +21,31 @@
         <MenuFlyout x:Key="ListViewItemFlyout">
             <MenuFlyout.Items>
                 <MenuFlyoutItem
+                    x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem0"
                     Command="{x:Bind _viewModel.BStartCommand}"
-                    Icon="Play"
-                    Text="Запустить" />
+                    Icon="Play" />
                 <MenuFlyoutItem
+                    x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem1"
                     Command="{x:Bind _viewModel.BPauseCommand}"
-                    Icon="Play"
-                    Text="Пауза" />
+                    Icon="Pause" />
                 <MenuFlyoutItem
+                    x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem2"
                     Command="{x:Bind _viewModel.BStopCommand}"
-                    Icon="Stop"
-                    Text="Остановить" />
+                    Icon="Stop" />
 
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
+                    x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem4"
                     Command="{x:Bind _viewModel.BDeleteCommand}"
-                    Icon="Delete"
-                    Text="Удалить" />
+                    Icon="Delete" />
 
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
+                    x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem6"
                     Command="{x:Bind _viewModel.FOpenFolderCommand}"
-                    Icon="Folder"
-                    Text="Открыть в проводнике" />
+                    Icon="Folder" />
             </MenuFlyout.Items>
         </MenuFlyout>
     </Page.Resources>
@@ -66,35 +66,35 @@
             OverflowButtonVisibility="Collapsed">
 
             <AppBarButton
+                x:Uid="MainNavView_CommandBar_AppBarButton_Add"
                 Command="{Binding BAddCommand}"
                 Icon="Add"
-                Label="Добавить"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
+                x:Uid="MainNavView_CommandBar_AppBarButton_Delete"
                 Command="{Binding BDeleteCommand}"
                 Icon="Delete"
-                Label="Удалить"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarSeparator />
 
             <AppBarButton
+                x:Uid="MainNavView_CommandBar_AppBarButton_Start"
                 Command="{Binding BStartCommand}"
                 Icon="Play"
-                Label="Запустить"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
+                x:Uid="MainNavView_CommandBar_AppBarButton_Pause"
                 Command="{Binding BPauseCommand}"
                 Icon="Pause"
-                Label="Пауза"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
+                x:Uid="MainNavView_CommandBar_AppBarButton_Stop"
                 Command="{Binding BStopCommand}"
                 Icon="Stop"
-                Label="Остановить"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
         </CommandBar>
 
@@ -126,7 +126,7 @@
                             <StackPanel Grid.Column="0" Orientation="Horizontal">
                                 <TextBlock Margin="5">
                                     <Run Text="{Binding DownloadedSize}" />
-                                    <Run Text=" из " />
+                                    <Run Text=" of " />
                                     <Run Text="{Binding TotalSize}" />
                                     <Run Text=" | " />
                                     <Run Text="{Binding Progress, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
@@ -159,7 +159,7 @@
             Background="{ThemeResource SystemControlAcrylicElementBrush}"
             Foreground="{ThemeResource SystemControlAcrylicWindowBrush}" />
 
-        <Pivot Grid.Row="3">
+        <Pivot Grid.Row="3" Background="{ThemeResource SystemControlAcrylicElementBrush}">
             <Pivot.Items>
                 <PivotItem Header="Информация">
                     <StackPanel>

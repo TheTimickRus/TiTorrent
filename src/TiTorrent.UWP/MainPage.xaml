@@ -9,25 +9,28 @@
 
     <NavigationView
         IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
         Loaded="NavigationView_OnLoaded"
         SelectionChanged="NavigationView_OnSelectionChanged">
 
         <NavigationView.MenuItems>
             <NavigationViewItem
-                x:Uid="NavItem0"
+                x:Uid="MainPage_NavigationView_MainNavItem"
                 Icon="AllApps"
                 Tag="Main" />
 
             <NavigationViewItemSeparator />
 
             <NavigationViewItem
-                x:Uid="NavItem1"
+                x:Uid="MainPage_NavigationView_Downloaded"
                 Icon="Download"
+                IsEnabled="False"
                 Tag="Download" />
 
             <NavigationViewItem
-                x:Uid="NavItem2"
+                x:Uid="MainPage_NavigationView_Seeding"
                 Icon="Upload"
+                IsEnabled="False"
                 Tag="Upload" />
         </NavigationView.MenuItems>
 

@@ -24,7 +24,7 @@
         <TextBlock
             Margin="5"
             FontSize="16"
-            Text="Файл: " />
+            Text="Торрент: " />
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -40,8 +40,10 @@
 
             <Button
                 Grid.Column="1"
+                Width="60"
                 Margin="0,5,5,5"
-                Command="{Binding BOpenTorrentCommand}">
+                Command="{Binding BOpenTorrentCommand}"
+                Style="{StaticResource ButtonRevealStyle}">
 
                 <SymbolIcon Symbol="Find" />
             </Button>
@@ -61,23 +63,19 @@
             <TextBox
                 Grid.Column="0"
                 Margin="5"
+                VerticalAlignment="Center"
                 Text="{Binding Model.SavePath}" />
 
             <Button
                 Grid.Column="1"
+                Width="60"
                 Margin="0,5,5,5"
-                Command="{Binding BOpenSaveFolderCommand}">
+                Command="{Binding BOpenSaveFolderCommand}"
+                Style="{StaticResource ButtonRevealStyle}">
 
                 <SymbolIcon Symbol="Find" />
             </Button>
         </Grid>
-
-        <CheckBox
-            Margin="5,0,5,5"
-            HorizontalAlignment="Right"
-            Content="Использовать как путь по умолчанию"
-            IsChecked="{Binding Model.IsSavePath}"
-            IsEnabled="False" />
 
         <TextBlock
             Margin="5"

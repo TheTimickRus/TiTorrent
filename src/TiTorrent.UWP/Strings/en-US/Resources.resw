@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavItem0.Content" xml:space="preserve">
+  <data name="MainPage_NavigationView_Downloaded.Content" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="MainPage_NavigationView_MainNavItem.Content" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="NavItem1.Content" xml:space="preserve">
-    <value>Downloads</value>
-  </data>
-  <data name="NavItem2.Content" xml:space="preserve">
-    <value>Uploads</value>
+  <data name="MainPage_NavigationView_Seeding.Content" xml:space="preserve">
+    <value>Seeding</value>
   </data>
 </root>
