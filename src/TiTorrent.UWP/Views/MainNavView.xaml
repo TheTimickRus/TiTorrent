@@ -12,11 +12,8 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <myConverters:SizeConverter x:Name="SizeConverter" />
-        <myConverters:PercentConverter x:Name="PercentConverter" />
         <myConverters:FullPathToFileNameConverter x:Name="FullPathToFileNameConverter" />
         <mtConverters:StringFormatConverter x:Name="StringFormatConverter" />
-        <mtConverters:FormatStringConverter x:Name="FormatStringConverter" />
 
         <MenuFlyout x:Key="ListViewItemFlyout">
             <MenuFlyout.Items>
@@ -129,14 +126,14 @@
                                     <Run Text=" of " />
                                     <Run Text="{Binding TotalSize}" />
                                     <Run Text=" | " />
-                                    <Run Text="{Binding Progress, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
+                                    <Run Text="{Binding Progress, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:F2} %'}" />
                                 </TextBlock>
 
                                 <SymbolIcon Margin="5" Symbol="Download" />
-                                <TextBlock Margin="5" Text="{Binding DownloadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
+                                <TextBlock Margin="5" Text="{Binding DownloadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
 
                                 <SymbolIcon Margin="5" Symbol="Upload" />
-                                <TextBlock Margin="5" Text="{Binding UploadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}:{}'}" />
+                                <TextBlock Margin="5" Text="{Binding UploadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -206,7 +203,7 @@
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
                                             Text="Загрузка: " />
-                                        <TextBlock Text="{Binding MainPivotModel.DownloadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                        <TextBlock Text="{Binding MainPivotModel.DownloadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
 
@@ -235,7 +232,7 @@
                                             Margin="0,0,5,0"
                                             HorizontalAlignment="Right"
                                             Text="Отдача: " />
-                                        <TextBlock Text="{Binding MainPivotModel.UploadSpeed, Converter={StaticResource SizeConverter}, ConverterParameter=1}" />
+                                        <TextBlock Text="{Binding MainPivotModel.UploadSpeed, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
 

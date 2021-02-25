@@ -3,20 +3,17 @@ using GalaSoft.MvvmLight.Command;
 using MonoTorrent;
 using MonoTorrent.Client;
 using System;
-using System.IO;
 using System.Windows.Input;
 using TiTorrent.Dialogs.Models;
 using TiTorrent.Shared;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
-using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 
 namespace TiTorrent.Dialogs.ViewModels
 {
     public class AddDialogViewModel : ObservableObject
     {
-        public AddDialogModel Model { get; set; } = new AddDialogModel();
+        public AddDialogModel Model { get; set; } = new();
 
         public AddDialogViewModel()
         {

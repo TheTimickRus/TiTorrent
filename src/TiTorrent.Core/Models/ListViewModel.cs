@@ -4,7 +4,7 @@ using MonoTorrent.Client;
 
 namespace TiTorrent.Core.Models
 {
-    public class DataGridModel : ObservableObject
+    public class ListViewModel : ObservableObject
     {
         public string Hash { get; set; }
 
@@ -18,7 +18,7 @@ namespace TiTorrent.Core.Models
         public ByteSize UploadSpeed { get; set; }
 
 
-        public DataGridModel(TorrentManager manager)
+        public ListViewModel(TorrentManager manager)
         {
             Hash = manager.InfoHash.ToHex();
             Name = manager.Torrent.Name;

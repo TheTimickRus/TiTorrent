@@ -14,15 +14,13 @@ using System.Windows.Input;
 using TiTorrent.Core.Models;
 using TiTorrent.Dialogs.Models;
 using TiTorrent.Dialogs.Views;
+using TiTorrent.Shared.Notification;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Microsoft.Toolkit.Uwp.Notifications;
-using TiTorrent.Shared.Notification;
 
 namespace TiTorrent.Core.ViewModels
 {
@@ -30,8 +28,8 @@ namespace TiTorrent.Core.ViewModels
     {
         #region PublicProps
 
-        public ObservableCollection<DataGridModel> TorrentsCollection { get; set; } = new();
-        public DataGridModel SelectedTorrent { get; set; }
+        public ObservableCollection<ListViewModel> TorrentsCollection { get; set; } = new();
+        public ListViewModel SelectedTorrent { get; set; }
 
         public PivotModel MainPivotModel { get; set; }
 
@@ -66,7 +64,7 @@ namespace TiTorrent.Core.ViewModels
                         .ForEach(manager =>
                         {
                             manager.StartAsync();
-                            TorrentsCollection.Add(new DataGridModel(manager));
+                            TorrentsCollection.Add(new ListViewModel(manager));
                         });
                 });
             });
@@ -79,8 +77,13 @@ namespace TiTorrent.Core.ViewModels
             {
                 await new MessageDialog(args.Exception.Message, "Error!").ShowAsync();
             };
+
+            AppDomain.CurrentDomain.UnhandledException += async (_, args) =>
+            {
+                await new MessageDialog(args.ExceptionObject.ToString(), "Error!").ShowAsync();
+            };
         }
-        
+
         #endregion
 
         #region Commands
@@ -89,7 +92,7 @@ namespace TiTorrent.Core.ViewModels
         {
             try
             {
-                // Создаем форму добавления
+                //Создаем форму добавления
                 var addDialog = new AddDialog();
                 if (await addDialog.ShowAsync() != ContentDialogResult.Primary)
                 {
@@ -97,7 +100,7 @@ namespace TiTorrent.Core.ViewModels
                 }
 
                 // Проверяем, на повтор
-                if (_clientEngine.Torrents.FirstOrDefault(m => m.Equals(AddDialogModel.Manager)) != null)
+                if (_clientEngine.Torrents.FirstOrDefault(m => m.Equals(AddDialogModel.Manager)) is not null)
                 {
                     throw new Exception("Торрент уже существует!");
                 }
@@ -105,19 +108,8 @@ namespace TiTorrent.Core.ViewModels
                 var manager = AddDialogModel.Manager;
 
                 // Добавляем в коллекцию и регистрируем в движке
-                TorrentsCollection.Add(new DataGridModel(manager));
+                TorrentsCollection.Add(new ListViewModel(manager));
                 await _clientEngine.Register(manager);
-
-                // Уведомляем пользователя о изменении состояния
-                manager.TorrentStateChanged += (_, args) =>
-                {
-                    var ns = args.NewState;
-
-                    if (ns == TorrentState.Downloading || ns == TorrentState.Stopped || ns == TorrentState.Paused)
-                    {
-                        ToastNotificationEx.ShowInfo($"{args.TorrentManager.Torrent.Name}", $"{args.OldState} -> {args.NewState}");
-                    }
-                };
 
                 // Начинаем загрузку
                 await manager.StartAsync();
@@ -232,6 +224,21 @@ namespace TiTorrent.Core.ViewModels
 
         #region Methods
 
+        private static Task Execute(Action action)
+        {
+            return Task.Run(async () =>
+            {
+                try
+                {
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, action.Invoke);
+                }
+                catch (Exception ex)
+                {
+                    await new MessageDialog(ex.Message, "Error!").ShowAsync();
+                }
+            });
+        }
+
         private void MainTimer(bool startTimer = true)
         {
             if (startTimer)
@@ -289,14 +296,6 @@ namespace TiTorrent.Core.ViewModels
         private static async Task<ClientEngine> LoadState()
         {
             var engine = new ClientEngine();
-
-            //var nodes = Array.Empty<byte>();
-            //if (File.Exists(DhtNodesPath))
-            //{
-            //    nodes = await File.ReadAllBytesAsync(DhtNodesPath);
-            //}
-
-            //await engine.DhtEngine.StartAsync(nodes);
 
             if (File.Exists(FastResumePath))
             {

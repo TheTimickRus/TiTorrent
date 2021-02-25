@@ -102,5 +102,12 @@
             <Run Text="Комментарий: " />
             <Run Text="{Binding Model.Comment}" />
         </TextBlock>
+
+        <TextBlock
+            Margin="5"
+            FontSize="16"
+            Text="Файлы: " />
+
+        <TreeView Margin="5" SelectionMode="Multiple" />
     </StackPanel>
 </ContentDialog>
