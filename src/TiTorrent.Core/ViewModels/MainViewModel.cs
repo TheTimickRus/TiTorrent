@@ -12,9 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TiTorrent.Core.Models;
-using TiTorrent.Dialogs.Models;
 using TiTorrent.Dialogs.Views;
-using TiTorrent.Shared.Notification;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
@@ -28,8 +26,8 @@ namespace TiTorrent.Core.ViewModels
     {
         #region PublicProps
 
-        public ObservableCollection<ListViewModel> TorrentsCollection { get; set; } = new();
-        public ListViewModel SelectedTorrent { get; set; }
+        public ObservableCollection<ListViewItemModel> TorrentsCollection { get; set; } = new();
+        public ListViewItemModel SelectedTorrent { get; set; }
 
         public PivotModel MainPivotModel { get; set; }
 
@@ -64,7 +62,7 @@ namespace TiTorrent.Core.ViewModels
                         .ForEach(manager =>
                         {
                             manager.StartAsync();
-                            TorrentsCollection.Add(new ListViewModel(manager));
+                            TorrentsCollection.Add(new ListViewItemModel(manager));
                         });
                 });
             });
@@ -92,23 +90,31 @@ namespace TiTorrent.Core.ViewModels
         {
             try
             {
-                //Создаем форму добавления
+                // Торрент
+                TorrentManager manager = null;
+
+                // Создаем форму добавления
                 var addDialog = new AddDialog();
+                MessengerInstance.Register<TorrentManager>(this, value => manager = value);
                 if (await addDialog.ShowAsync() != ContentDialogResult.Primary)
                 {
                     return;
                 }
 
+                // Если торрент не выбран - выходим
+                if (manager is null)
+                {
+                    throw new Exception("Вы не выбрали торрент!");
+                }
+
                 // Проверяем, на повтор
-                if (_clientEngine.Torrents.FirstOrDefault(m => m.Equals(AddDialogModel.Manager)) is not null)
+                if (_clientEngine.Torrents.FirstOrDefault(m => m.Equals(manager)) is not null)
                 {
                     throw new Exception("Торрент уже существует!");
                 }
 
-                var manager = AddDialogModel.Manager;
-
                 // Добавляем в коллекцию и регистрируем в движке
-                TorrentsCollection.Add(new ListViewModel(manager));
+                TorrentsCollection.Add(new ListViewItemModel(manager));
                 await _clientEngine.Register(manager);
 
                 // Начинаем загрузку
@@ -210,8 +216,6 @@ namespace TiTorrent.Core.ViewModels
         {
             try
             {
-                var manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
-
                 throw new Exception("Не реализовано :(");
             }
             catch (Exception ex)
@@ -223,21 +227,6 @@ namespace TiTorrent.Core.ViewModels
         #endregion
 
         #region Methods
-
-        private static Task Execute(Action action)
-        {
-            return Task.Run(async () =>
-            {
-                try
-                {
-                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, action.Invoke);
-                }
-                catch (Exception ex)
-                {
-                    await new MessageDialog(ex.Message, "Error!").ShowAsync();
-                }
-            });
-        }
 
         private void MainTimer(bool startTimer = true)
         {

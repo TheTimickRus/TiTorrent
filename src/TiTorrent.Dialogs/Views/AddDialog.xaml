@@ -2,23 +2,18 @@
     x:Class="TiTorrent.Dialogs.Views.AddDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters1="using:TiTorrent.Dialogs.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="using:TiTorrent.Dialogs.ViewModels"
-    Title="Добавить файл"
-    PrimaryButtonCommand="{Binding BOkCommand}"
-    PrimaryButtonText="ОК"
+    xmlns:vm="using:TiTorrent.Dialogs.ViewModels"
+    Title="Добавить торрент"
+    PrimaryButtonCommand="{Binding BPrimaryCommand}"
+    PrimaryButtonText="Добавить"
     SecondaryButtonText="Отмена"
     mc:Ignorable="d">
 
     <ContentDialog.DataContext>
-        <viewModels:AddDialogViewModel />
+        <vm:AddDialogViewModel />
     </ContentDialog.DataContext>
-
-    <ContentControl.Resources>
-        <converters1:SizeConverter x:Name="SizeConverter" />
-    </ContentControl.Resources>
 
     <StackPanel>
         <TextBlock
@@ -36,14 +31,13 @@
                 Grid.Column="0"
                 Margin="5"
                 IsReadOnly="True"
-                Text="{Binding Model.Name}" />
+                Text="{Binding Name}" />
 
             <Button
                 Grid.Column="1"
                 Width="60"
                 Margin="0,5,5,5"
-                Command="{Binding BOpenTorrentCommand}"
-                Style="{StaticResource ButtonRevealStyle}">
+                Command="{Binding BOpenTorrentCommand}">
 
                 <SymbolIcon Symbol="Find" />
             </Button>
@@ -64,14 +58,13 @@
                 Grid.Column="0"
                 Margin="5"
                 VerticalAlignment="Center"
-                Text="{Binding Model.SavePath}" />
+                Text="{Binding SavePath}" />
 
             <Button
                 Grid.Column="1"
                 Width="60"
                 Margin="0,5,5,5"
-                Command="{Binding BOpenSaveFolderCommand}"
-                Style="{StaticResource ButtonRevealStyle}">
+                Command="{Binding BOpenSaveFolderCommand}">
 
                 <SymbolIcon Symbol="Find" />
             </Button>
@@ -84,30 +77,23 @@
 
         <TextBlock Margin="5,5,5,0">
             <Run Text="Имя: " />
-            <Run Text="{Binding Model.Name}" />
+            <Run Text="{Binding Name}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
             <Run Text="Размер: " />
-            <Run Text="{Binding Model.Size, Converter={StaticResource SizeConverter}}" />
+            <Run Text="{Binding Size}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
             <Run Text="Дата создания: " />
-            <Run Text="{Binding Model.Date}" />
+            <Run Text="{Binding Date}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
             <Run Text="Хеш: " />
-            <Run Text="{Binding Model.Hash}" />
+            <Run Text="{Binding Hash}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,5">
             <Run Text="Комментарий: " />
-            <Run Text="{Binding Model.Comment}" />
+            <Run Text="{Binding Comment}" />
         </TextBlock>
-
-        <TextBlock
-            Margin="5"
-            FontSize="16"
-            Text="Файлы: " />
-
-        <TreeView Margin="5" SelectionMode="Multiple" />
     </StackPanel>
 </ContentDialog>

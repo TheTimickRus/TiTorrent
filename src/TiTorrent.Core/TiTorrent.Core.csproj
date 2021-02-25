@@ -130,7 +130,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Models\ListViewModel.cs" />
+    <Compile Include="Models\ListViewItemModel.cs" />
     <Compile Include="Models\PivotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

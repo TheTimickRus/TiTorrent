@@ -4,34 +4,56 @@ using MonoTorrent;
 using MonoTorrent.Client;
 using System;
 using System.Windows.Input;
-using TiTorrent.Dialogs.Models;
 using TiTorrent.Shared;
 using Windows.Storage;
 using Windows.UI.Popups;
+using ByteSizeLib;
 
 namespace TiTorrent.Dialogs.ViewModels
 {
-    public class AddDialogViewModel : ObservableObject
+    public class AddDialogViewModel : ViewModelBase
     {
-        public AddDialogModel Model { get; set; } = new();
+        #region PublicProps
+
+        public string SavePath { get; set; }
+        public string Name { get; set; }
+        public ByteSize? Size { get; set; }
+        public DateTime? Date { get; set; }
+        public string Hash { get; set; }
+        public string Comment { get; set; }
+
+        #endregion
+
+        #region PrivateProps
+
+        private TorrentManager _manager;
+
+        #endregion
+
+        #region Constructors
 
         public AddDialogViewModel()
         {
-            Model.SavePath = $"{ApplicationData.Current.LocalFolder.Path}\\Downloads";
+            SavePath = $"{ApplicationData.Current.LocalFolder.Path}\\Downloads";
         }
+
+        #endregion
+
+        #region Commands
 
         public ICommand BOpenTorrentCommand => new RelayCommand(async () =>
         {
             try
             {
                 var file = await Utils.OpenFile();
-                if (file == null)
+                if (file is null)
                 {
                     return;
                 }
                 
-                var torrent = await Torrent.LoadAsync(file);
-                Model.Update(torrent);
+                _manager = new TorrentManager(await Torrent.LoadAsync(file), SavePath);
+
+                Update();
             }
             catch (Exception ex)
             {
@@ -44,32 +66,37 @@ namespace TiTorrent.Dialogs.ViewModels
             try
             {
                 var folder = await Utils.OpenFolder();
-                if (folder == null)
+                if (folder is null)
                 {
                     return;
                 }
 
-                Model.SavePath = folder;
+                SavePath = folder;
             }
             catch (Exception ex)
             {
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
             }
+        }, () => false);
+
+        public ICommand BPrimaryCommand => new RelayCommand(() =>
+        {
+            MessengerInstance.Send(_manager);
         });
 
-        public ICommand BOkCommand => new RelayCommand(async () =>
+        #endregion
+
+        #region Methods
+
+        public void Update()
         {
-            try
-            {
-                if (Model.Torrent != null)
-                {
-                    AddDialogModel.Manager = new TorrentManager(Model.Torrent, Model.SavePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                await new MessageDialog(ex.Message, "Error!").ShowAsync();
-            }
-        });
+            Name = _manager.Torrent.Name;
+            Size = ByteSize.FromBytes(_manager.Size);
+            Date = _manager.Torrent.CreationDate;
+            Hash = _manager.InfoHash.ToHex();
+            Comment = _manager.Torrent.Comment;
+        }
+
+        #endregion
     }
 }
