@@ -11,12 +11,12 @@
   xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   IgnorableNamespaces="uap mp uap5 rescap desktop4 desktop">
   
-  <Identity
-    Name="TiTorrent"
-    Publisher="CN=TheTimickRus"
-    Version="0.1.0.0" />
+  <Identity Name="TiTorrent" 
+            Publisher="CN=TheTimickRus" 
+            Version="0.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="c76c1dbf-c893-4f40-8f82-0934dfd31490" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <mp:PhoneIdentity PhoneProductId="c76c1dbf-c893-4f40-8f82-0934dfd31490" 
+                    PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 
   <Properties>
     <DisplayName>TiTorrent.UWP</DisplayName>
@@ -25,7 +25,9 @@
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Universal" 
+                        MinVersion="10.0.0.0" 
+                        MaxVersionTested="10.0.0.0" />
   </Dependencies>
 
   <Resources>

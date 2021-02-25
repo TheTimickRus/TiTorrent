@@ -117,13 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainNavView_CommandBar_AppBarButton_Add.Label" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="MainNavView_CommandBar_AppBarButton_Delete.Label" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MainNavView_CommandBar_AppBarButton_Pause.Label" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainNavView_CommandBar_AppBarButton_Start.Label" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="MainNavView_CommandBar_AppBarButton_Stop.Label" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="MainNavView_ListViewItemFlyout_MenuFlyoutItem0.Text" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="MainNavView_ListViewItemFlyout_MenuFlyoutItem1.Text" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainNavView_ListViewItemFlyout_MenuFlyoutItem2.Text" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="MainNavView_ListViewItemFlyout_MenuFlyoutItem4.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MainNavView_ListViewItemFlyout_MenuFlyoutItem6.Text" xml:space="preserve">
+    <value>Открыть в проводнике</value>
+  </data>
   <data name="MainPage_NavigationView_Downloaded.Content" xml:space="preserve">
-    <value>Downloading</value>
+    <value>Загружаются</value>
   </data>
   <data name="MainPage_NavigationView_MainNavItem.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Главное</value>
   </data>
   <data name="MainPage_NavigationView_Seeding.Content" xml:space="preserve">
-    <value>Seeding</value>
+    <value>Раздаются</value>
   </data>
 </root>
