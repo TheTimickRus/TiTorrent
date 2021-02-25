@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using Serilog;
 
 namespace TiTorrent.Shared
 {
@@ -52,17 +53,17 @@ namespace TiTorrent.Shared
 
         public static async void CopyTorrent(StorageFile torrentFile)
         {
-            if (!Directory.Exists(AppState.TorrentsFolderPath))
+            if (!Directory.Exists(AppState.TorrentsDirectory))
             {
-                Directory.CreateDirectory(AppState.TorrentsFolderPath);
+                Directory.CreateDirectory(AppState.TorrentsDirectory);
             }
 
-            if (File.Exists(Path.Combine(AppState.TorrentsFolderPath, Path.GetFileName(torrentFile.Path))))
+            if (File.Exists(Path.Combine(AppState.TorrentsDirectory, Path.GetFileName(torrentFile.Path))))
             {
                 return;
             }
 
-            await torrentFile.CopyAsync(await StorageFolder.GetFolderFromPathAsync(AppState.TorrentsFolderPath));
+            await torrentFile.CopyAsync(await StorageFolder.GetFolderFromPathAsync(AppState.TorrentsDirectory));
         }
     }
 }

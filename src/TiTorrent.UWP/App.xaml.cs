@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using System;
 using TiTorrent.Core.ViewModels;
+using TiTorrent.Shared;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -14,8 +15,12 @@ namespace TiTorrent.UWP
     {
         public App()
         {
+            AppState.Init();
+
             InitializeComponent();
             Suspending += OnSuspending;
+
+            Log.Instance.Information("Программа запущена!");
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -44,7 +49,7 @@ namespace TiTorrent.UWP
 
         private static void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            Log.Instance.Error(new Exception("Failed to load Page " + e.SourcePageType.FullName), "");
         }
 
         private static async void OnSuspending(object sender, SuspendingEventArgs e)
@@ -52,7 +57,18 @@ namespace TiTorrent.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
 
             // Сохраняемся
-            await SimpleIoc.Default.GetInstance<MainViewModel>().SaveState();
+            try
+            {
+                await SimpleIoc.Default.GetInstance<MainViewModel>().SaveState();
+                Log.Instance.Information("Данные сохранены!");
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Error(ex, "Ошибка при сохранении данных!", SimpleIoc.Default.GetInstance<MainViewModel>());
+            }
+
+            // Убиваем логгер
+            Log.Instance.Dispose();
 
             deferral.Complete();
         }

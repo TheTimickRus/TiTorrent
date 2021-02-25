@@ -77,7 +77,7 @@ namespace TiTorrent.Dialogs.ViewModels
             {
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
             }
-        }, () => false);
+        });
 
         public ICommand BPrimaryCommand => new RelayCommand(() =>
         {

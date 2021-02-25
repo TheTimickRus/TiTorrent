@@ -19,6 +19,7 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using TiTorrent.Shared;
 
 namespace TiTorrent.Core.ViewModels
 {
@@ -74,11 +75,13 @@ namespace TiTorrent.Core.ViewModels
             _clientEngine.CriticalException += async (_, args) =>
             {
                 await new MessageDialog(args.Exception.Message, "Error!").ShowAsync();
+                Log.Instance.Error(args.Exception, $"Произошла ошибка в движке {args.Engine}!");
             };
 
             AppDomain.CurrentDomain.UnhandledException += async (_, args) =>
             {
                 await new MessageDialog(args.ExceptionObject.ToString(), "Error!").ShowAsync();
+                Log.Instance.Error(args.ExceptionObject.ToString());
             };
         }
 
@@ -88,11 +91,11 @@ namespace TiTorrent.Core.ViewModels
 
         public ICommand BAddCommand => new RelayCommand(async () =>
         {
+            // Торрент
+            TorrentManager manager = null;
+
             try
             {
-                // Торрент
-                TorrentManager manager = null;
-
                 // Создаем форму добавления
                 var addDialog = new AddDialog();
                 MessengerInstance.Register<TorrentManager>(this, value => manager = value);
@@ -119,19 +122,38 @@ namespace TiTorrent.Core.ViewModels
 
                 // Начинаем загрузку
                 await manager.StartAsync();
+
+                // Отслеживаем смену State
+                manager.TorrentStateChanged += (_, args) =>
+                {
+                    if (args.NewState == TorrentState.Error)
+                    {
+                        Log.Instance.Error(args.TorrentManager.Error.Exception, $"Произошла ошибка в ({args.TorrentManager})!");
+                    }
+                };
+
+                // Логгируемся
+                Log.Instance.Information($"Торрент {manager} успешно добавлен!");
             }
             catch (Exception ex)
             {
+                // Показываем ошибку
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
+
+                // Логгируемся
+                Log.Instance.Error(ex, $"Ошибка при добавлении торрента {manager}!");
             }
         });
 
         public ICommand BDeleteCommand => new RelayCommand(async () =>
         {
+            // Торрент
+            TorrentManager manager = null;
+
             try
             {
                 // Менеджер
-                var manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+                manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
                 
                 // Удаление загруженных файлов
                 var isFilesDelete = false;
@@ -166,23 +188,40 @@ namespace TiTorrent.Core.ViewModels
                     }
                 }
 
+                // Логгируемся
+                Log.Instance.Information($"Торрент {manager} был удален!");
+
             }
             catch (Exception ex)
             {
+                // Показываем ошибку
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
+
+                // Логгируемся
+                Log.Instance.Error(ex, $"Ошибка при добавлении торрента {manager}!");
             }
         }, () => SelectedTorrent != null);
 
         public ICommand BStartCommand => new RelayCommand(async () =>
         {
+            // Торрент
+            TorrentManager manager = null;
+
             try
             {
-                var manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+                manager = _clientEngine.Torrents.First(tm => tm.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
                 await manager.StartAsync();
+
+                // Логгируемся
+                Log.Instance.Information($"Торрент {manager} был запущен!");
             }
             catch (Exception ex)
             {
+                // Показываем ошибку
                 await new MessageDialog(ex.Message, "Error!").ShowAsync();
+
+                // Логгируемся
+                Log.Instance.Error(ex, $"Ошибка при запуске торрента {manager}!");
             }
         }, () => SelectedTorrent != null);
 

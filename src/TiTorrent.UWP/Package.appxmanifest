@@ -14,7 +14,7 @@
   <Identity
     Name="TiTorrent"
     Publisher="CN=TheTimickRus"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="c76c1dbf-c893-4f40-8f82-0934dfd31490" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 

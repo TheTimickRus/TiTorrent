@@ -145,13 +145,13 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.0.0-preview4</Version>
+      <Version>7.0.0-preview5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>7.0.0-preview4</Version>
+      <Version>7.0.0-preview5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>7.0.0-preview4</Version>
+      <Version>7.0.0-preview5</Version>
     </PackageReference>
     <PackageReference Include="MonoTorrent">
       <Version>2.0.0-alpha.unstable.rev0123</Version>
