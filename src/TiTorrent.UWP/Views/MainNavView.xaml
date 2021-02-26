@@ -125,7 +125,7 @@
                                     <Run Text="{Binding DownloadedSize}" />
                                     <Run Text=" of " />
                                     <Run Text="{Binding TotalSize}" />
-                                    <Run Text=" | " />
+                                    <Run Text=" · " />
                                     <Run Text="{Binding Progress, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:F2} %'}" />
                                 </TextBlock>
 

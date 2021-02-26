@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using MonoTorrent;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ByteSizeLib;
 using MonoTorrent.Client;
 
 namespace TiTorrent.Core.Models
@@ -14,19 +15,19 @@ namespace TiTorrent.Core.Models
         // Информация
         // => Торрент
         public string ActiveTime { get; set; }
-        public long DownloadSize { get; set; }
-        public long DownloadSpeed { get; set; }
+        public ByteSize DownloadSize { get; set; }
+        public ByteSize DownloadSpeed { get; set; }
 
         public string LeftTime { get; set; }
-        public long UploadSize { get; set; }
-        public long UploadSpeed { get; set; }
+        public ByteSize UploadSize { get; set; }
+        public ByteSize UploadSpeed { get; set; }
 
         public int ConnectionCount { get; set; }
         public int SeedsCount { get; set; }
         public int PeersCount { get; set; }
 
         // => Дополнительно
-        public long TotalSize { get; set; }
+        public ByteSize TotalSize { get; set; }
         public string DateAdded { get; set; }
         public string Hash { get; set; }
         public string SavePath { get; set; }
@@ -49,19 +50,19 @@ namespace TiTorrent.Core.Models
             // Информация
             // => Торрент
             ActiveTime = (DateTime.Now - manager.StartTime).ToString(@"hh\:mm\:ss");
-            DownloadSize = manager.Monitor.DataBytesDownloaded;
-            DownloadSpeed = manager.Monitor.DownloadSpeed;
+            DownloadSize = ByteSize.FromBytes(manager.Monitor.DataBytesDownloaded);
+            DownloadSpeed = ByteSize.FromBytes(manager.Monitor.DownloadSpeed);
 
             LeftTime = ActiveTime;
-            UploadSize = manager.Monitor.DataBytesUploaded;
-            UploadSpeed = manager.Monitor.UploadSpeed;
+            UploadSize = ByteSize.FromBytes(manager.Monitor.DataBytesUploaded);
+            UploadSpeed = ByteSize.FromBytes(manager.Monitor.UploadSpeed);
 
             ConnectionCount = manager.OpenConnections;
             SeedsCount = manager.Peers.Seeds;
             PeersCount = manager.Peers.Available;
 
             // => Дополнительно
-            TotalSize = manager.Torrent.Size;
+            TotalSize = ByteSize.FromBytes(manager.Torrent.Size);
             DateAdded = manager.Torrent.CreationDate.ToString("g");
             Hash = manager.InfoHash.ToHex();
             SavePath = manager.SavePath;
@@ -83,19 +84,19 @@ namespace TiTorrent.Core.Models
             // Информация
             // => Торрент
             ActiveTime = (DateTime.Now - manager.StartTime).ToString(@"hh\:mm\:ss");
-            DownloadSize = manager.Monitor.DataBytesDownloaded;
-            DownloadSpeed = manager.Monitor.DownloadSpeed;
+            DownloadSize = ByteSize.FromBytes(manager.Monitor.DataBytesDownloaded);
+            DownloadSpeed = ByteSize.FromBytes(manager.Monitor.DownloadSpeed);
 
             LeftTime = ActiveTime;
-            UploadSize = manager.Monitor.DataBytesUploaded;
-            UploadSpeed = manager.Monitor.UploadSpeed;
+            UploadSize = ByteSize.FromBytes(manager.Monitor.DataBytesUploaded);
+            UploadSpeed = ByteSize.FromBytes(manager.Monitor.UploadSpeed);
 
             ConnectionCount = manager.OpenConnections;
             SeedsCount = manager.Peers.Seeds;
             PeersCount = manager.Peers.Available;
 
             // => Дополнительно
-            TotalSize = manager.Torrent.Size;
+            TotalSize = ByteSize.FromBytes(manager.Torrent.Size);
             DateAdded = manager.Torrent.CreationDate.ToString("g");
             Hash = manager.InfoHash.ToHex();
             SavePath = manager.SavePath;
