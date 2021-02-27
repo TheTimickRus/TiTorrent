@@ -152,7 +152,7 @@
       <Version>7.0.0-preview5</Version>
     </PackageReference>
     <PackageReference Include="MonoTorrent">
-      <Version>2.0.0-alpha.unstable.rev0123</Version>
+      <Version>2.0.0-alpha.unstable.rev0132</Version>
     </PackageReference>
     <PackageReference Include="Serilog">
       <Version>2.10.1-dev-01285</Version>
