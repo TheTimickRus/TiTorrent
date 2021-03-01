@@ -5,6 +5,13 @@ namespace TiTorrent.UWP.Helpers
 {
     public class NavHelper
     {
+        public static readonly DependencyProperty NavigateToProperty =
+            DependencyProperty.RegisterAttached(
+                "NavigateTo",
+                typeof(string),
+                typeof(NavHelper),
+                new PropertyMetadata(null));
+
         public static string GetNavigateTo(NavigationViewItem item)
         {
             return (string)item.GetValue(NavigateToProperty);
@@ -14,7 +21,5 @@ namespace TiTorrent.UWP.Helpers
         {
             item.SetValue(NavigateToProperty, value);
         }
-
-        public static readonly DependencyProperty NavigateToProperty = DependencyProperty.RegisterAttached("NavigateTo", typeof(string), typeof(NavHelper), new PropertyMetadata(null));
     }
 }

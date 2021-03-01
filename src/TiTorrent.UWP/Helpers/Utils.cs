@@ -43,7 +43,7 @@ namespace TiTorrent.UWP.Helpers
                 : string.Empty;
         }
 
-        private static async void CopyTorrent(StorageFile torrentFile)
+        private static async void CopyTorrent(IStorageFile torrentFile)
         {
             if (!Directory.Exists(AppState.TorrentsDirectory))
             {

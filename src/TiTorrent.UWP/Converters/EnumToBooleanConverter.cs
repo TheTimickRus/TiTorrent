@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace TiTorrent.UWP.Helpers
+namespace TiTorrent.UWP.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

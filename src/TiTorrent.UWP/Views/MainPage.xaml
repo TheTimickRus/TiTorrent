@@ -130,8 +130,14 @@
             <Pivot.Items>
                 <PivotItem Header="Информация">
                     <StackPanel>
-                        <ProgressBar Height="23" Margin="0,5,0,5" Value="{x:Bind ViewModel.SelectedTorrent.Progress, Mode=OneWay}" />
+                        <ProgressBar
+                            Height="23"
+                            Margin="0,5,0,5"
+                            Background="#333333"
+                            Foreground="#4C4A48"
+                            Value="70" />
 
+                        <!--  Value="{x:Bind ViewModel.SelectedTorrent.Progress, Mode=OneWay}"  -->
                         <controls:Expander
                             Margin="0,5,0,0"
                             HorizontalContentAlignment="Stretch"

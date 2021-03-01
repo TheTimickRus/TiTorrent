@@ -25,7 +25,7 @@ namespace TiTorrent.UWP.Behaviors
                 "DefaultHeader",
                 typeof(object),
                 typeof(NavigationViewHeaderBehavior),
-                new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
+                new PropertyMetadata(null, (_, _) => _current.UpdateHeader()));
 
         public static NavigationViewHeaderMode GetHeaderMode(Page item)
         {
