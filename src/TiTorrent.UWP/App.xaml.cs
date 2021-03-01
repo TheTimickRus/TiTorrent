@@ -19,10 +19,7 @@ namespace TiTorrent.UWP
         {
             InitializeComponent();
 
-            EnteredBackground += App_EnteredBackground;
-            Resuming += App_Resuming;
             Suspending += App_OnSuspending;
-
             UnhandledException += OnAppUnhandledException;
             
             _activationService = new Lazy<ActivationService>(CreateService);
@@ -57,21 +54,7 @@ namespace TiTorrent.UWP
         {
             await ActivationService.ActivateAsync(args);
         }
-
-        private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
-        {
-            var deferral = e.GetDeferral();
-
-            await Singleton<SuspendAndResumeService>.Instance.SaveStateAsync();
-
-            deferral.Complete();
-        }
-
-        private void App_Resuming(object sender, object e)
-        {
-            Singleton<SuspendAndResumeService>.Instance.ResumeApp();
-        }
-
+        
         private static async void App_OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();

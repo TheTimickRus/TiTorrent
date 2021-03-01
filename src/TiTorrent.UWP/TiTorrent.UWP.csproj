@@ -175,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
-    <Compile Include="Activation\CommandLineActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Converters\FullPathToFileNameConverter.cs" />
@@ -195,12 +194,7 @@
     <Compile Include="Services\Dialogs\DeleteDisplayService.cs" />
     <Compile Include="Services\Dialogs\FirstRunDisplayService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
-    <Compile Include="Services\SuspendAndResumeArgs.cs" />
-    <Compile Include="Services\SuspendAndResumeService.cs" />
-    <Compile Include="Services\SuspensionState.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
-    <Compile Include="Services\ToastNotificationsService.cs" />
-    <Compile Include="Services\ToastNotificationsService.Samples.cs" />
     <Compile Include="ViewModels\Dialogs\AddDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\DeleteDialogViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

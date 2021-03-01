@@ -27,8 +27,6 @@ namespace TiTorrent.UWP.Activation
 
             NavigationService.Navigate(_navElement, arguments);
 
-            //Singleton<ToastNotificationsService>.Instance.ShowToastNotificationSample();
-
             await Task.CompletedTask;
         }
 

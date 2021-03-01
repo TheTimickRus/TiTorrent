@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TiTorrent.UWP.Activation;
-using TiTorrent.UWP.Helpers;
 using TiTorrent.UWP.Services.Dialogs;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -40,8 +37,6 @@ namespace TiTorrent.UWP.Services
             if (IsInteractive(activationArgs))
             {
                 var activation = activationArgs as IActivatedEventArgs;
-                if (activation?.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                    await Singleton<SuspendAndResumeService>.Instance.RestoreSuspendAndResumeData();
 
                 Window.Current.Activate();
 
@@ -56,9 +51,11 @@ namespace TiTorrent.UWP.Services
 
         private async Task HandleActivationAsync(object activationArgs)
         {
-            var activationHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
-
-            if (activationHandler != null) await activationHandler.HandleAsync(activationArgs);
+            //var activationHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
+            //if (activationHandler != null)
+            //{
+            //    await activationHandler.HandleAsync(activationArgs);
+            //}
 
             if (IsInteractive(activationArgs))
             {
@@ -73,12 +70,10 @@ namespace TiTorrent.UWP.Services
             await FirstRunDisplayService.ShowIfAppropriateAsync();
         }
 
-        private IEnumerable<ActivationHandler> GetActivationHandlers()
-        {
-            yield return Singleton<ToastNotificationsService>.Instance;
-            yield return Singleton<SuspendAndResumeService>.Instance;
-            yield return Singleton<CommandLineActivationHandler>.Instance;
-        }
+        //private IEnumerable<ActivationHandler> GetActivationHandlers()
+        //{
+        //    yield return Singleton<CommandLineActivationHandler>.Instance;
+        //}
 
         public bool IsInteractive(object args)
         {
