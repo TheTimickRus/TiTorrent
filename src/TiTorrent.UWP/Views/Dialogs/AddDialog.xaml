@@ -1,0 +1,88 @@
+﻿<ContentDialog
+    x:Class="TiTorrent.UWP.Views.Dialogs.AddDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogs="using:TiTorrent.UWP.ViewModels.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Uid="AddDialog"
+    PrimaryButtonCommand="{Binding BPrimaryCommand}"
+    mc:Ignorable="d">
+
+    <ContentDialog.DataContext>
+        <dialogs:AddDialogViewModel />
+    </ContentDialog.DataContext>
+
+    <StackPanel>
+        <TextBlock x:Uid="AddDialog_TorrentHeader" Margin="5" FontSize="16" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Grid.Column="0"
+                Margin="5"
+                IsReadOnly="True"
+                Text="{Binding Name}" />
+
+            <Button
+                Grid.Column="1"
+                Width="60"
+                Margin="0,5,5,5"
+                Command="{Binding BOpenTorrentCommand}">
+
+                <SymbolIcon Symbol="Find" />
+            </Button>
+        </Grid>
+
+        <TextBlock x:Uid="AddDialog_FolderHeader" Margin="5" FontSize="16" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Grid.Column="0"
+                Margin="5"
+                VerticalAlignment="Center"
+                Text="{Binding SavePath}" />
+
+            <Button
+                Grid.Column="1"
+                Width="60"
+                Margin="0,5,5,5"
+                Command="{Binding BOpenSaveFolderCommand}">
+
+                <SymbolIcon Symbol="Find" />
+            </Button>
+        </Grid>
+
+        <TextBlock x:Uid="AddDialog_TorrentInformationHeader" Margin="5" FontSize="16" />
+
+        <TextBlock Margin="5,5,5,0">
+            <Run x:Uid="AddDialog_TorrentInformation_Name" />
+            <Run Text="{Binding Name}" />
+        </TextBlock>
+        <TextBlock Margin="5,0,5,0">
+            <Run x:Uid="AddDialog_TorrentInformation_Size" Text="Размер: " />
+            <Run Text="{Binding Size}" />
+        </TextBlock>
+        <TextBlock Margin="5,0,5,0">
+            <Run x:Uid="AddDialog_TorrentInformation_Date" Text="Дата создания: " />
+            <Run Text="{Binding Date}" />
+        </TextBlock>
+        <TextBlock Margin="5,0,5,0">
+            <Run x:Uid="AddDialog_TorrentInformation_Hash" Text="Хеш: " />
+            <Run Text="{Binding Hash}" />
+        </TextBlock>
+        <TextBlock Margin="5,0,5,5">
+            <Run x:Uid="AddDialog_TorrentInformation_Comment" Text="Комментарий: " />
+            <Run Text="{Binding Comment}" />
+        </TextBlock>
+    </StackPanel>
+</ContentDialog>

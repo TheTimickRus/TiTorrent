@@ -1,76 +1,98 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using System;
-using TiTorrent.Core.ViewModels;
-using TiTorrent.Shared;
+﻿using System;
+using TiTorrent.UWP.Helpers;
+using TiTorrent.UWP.Services;
+using TiTorrent.UWP.ViewModels;
+using TiTorrent.UWP.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace TiTorrent.UWP
 {
-    sealed partial class App
+    public sealed partial class App
     {
+        private readonly Lazy<ActivationService> _activationService;
+        private ActivationService ActivationService => _activationService.Value;
+
         public App()
         {
-            AppState.Init();
-
             InitializeComponent();
-            Suspending += OnSuspending;
 
+            EnteredBackground += App_EnteredBackground;
+            Resuming += App_Resuming;
+            Suspending += App_OnSuspending;
+
+            UnhandledException += OnAppUnhandledException;
+            
+            _activationService = new Lazy<ActivationService>(CreateService);
+        }
+
+        private ActivationService CreateService()
+        {
+            return new(this, typeof(MainViewModel), new Lazy<UIElement>(CreateShell));
+        }
+
+        private static UIElement CreateShell()
+        {
+            return new ShellPage();
+        }
+
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            if (args.PrelaunchActivated is false)
+            {
+                await ActivationService.ActivateAsync(args);
+            }
+
+            // Контент поверх TitleBar
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+            // Инициализация
+            AppState.Init();
             Log.Instance.Information("Программа запущена!");
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs args)
         {
-            if (!(Window.Current.Content is Frame rootFrame))
-            {
-                rootFrame = new Frame();
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                Window.Current.Content = rootFrame;
-            }
-
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
-                {
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-
-                Window.Current.Activate();
-            }
-
-            // Содержимое поверх TitleBar
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            await ActivationService.ActivateAsync(args);
         }
 
-        private static void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
         {
-            Log.Instance.Error(new Exception("Failed to load Page " + e.SourcePageType.FullName), "");
+            var deferral = e.GetDeferral();
+
+            await Singleton<SuspendAndResumeService>.Instance.SaveStateAsync();
+
+            deferral.Complete();
         }
 
-        private static async void OnSuspending(object sender, SuspendingEventArgs e)
+        private void App_Resuming(object sender, object e)
+        {
+            Singleton<SuspendAndResumeService>.Instance.ResumeApp();
+        }
+
+        private static async void App_OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            // Сохраняемся
             try
             {
-                await SimpleIoc.Default.GetInstance<MainViewModel>().SaveState();
-                Log.Instance.Information("Данные сохранены!");
+                await ViewModelLocator.Current.MainViewModel.SaveState();
             }
             catch (Exception ex)
             {
-                Log.Instance.Error(ex, "Ошибка при сохранении данных!", SimpleIoc.Default.GetInstance<MainViewModel>());
+                Log.Instance.Error(ex, "Ошибка при сохранении!");
             }
 
-            // Убиваем логгер
-            Log.Instance.Dispose();
+            Log.Instance.Information("Программа завершена!");
 
             deferral.Complete();
+        }
+
+        private static void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            Log.Instance.Fatal(e.Exception, e.Message);
         }
     }
 }

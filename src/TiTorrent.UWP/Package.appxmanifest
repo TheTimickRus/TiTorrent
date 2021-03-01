@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
-  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
-  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
-  IgnorableNamespaces="uap mp uap5 rescap desktop4 desktop">
-  
-  <Identity Name="TiTorrent" 
-            Publisher="CN=TheTimickRus" 
-            Version="0.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="c76c1dbf-c893-4f40-8f82-0934dfd31490" 
-                    PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio"
+  IgnorableNamespaces="uap mp genTemplate uap5">
+
+  <Identity
+    Name="TheTimickRus.TiTorrent"
+    Publisher="CN=TheTimickRus"
+    Version="0.1.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="837DEC09-A1CE-4C9D-B99C-B26503461A02" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TiTorrent.UWP</DisplayName>
@@ -25,9 +22,7 @@
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" 
-                        MinVersion="10.0.0.0" 
-                        MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
 
   <Resources>
@@ -39,29 +34,39 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="TiTorrent.UWP.App">
       <uap:VisualElements
-        DisplayName="TiTorrent"
+        DisplayName="ms-resource:AppDisplayName"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="TiTorrent"
+        Description="ms-resource:AppDescription"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="TiTorrent">
-          <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="square150x150Logo"/>
-            <uap:ShowOn Tile="wide310x150Logo"/>
-            <uap:ShowOn Tile="square310x310Logo"/>
-          </uap:ShowNameOnTiles>
-        </uap:DefaultTile >
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
-        <uap:InitialRotationPreference>
-          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
-        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
+
+      <Extensions>
+          <uap5:Extension
+            Category="windows.appExecutionAlias"
+            Executable="TiTorrent.UWP.exe"
+            EntryPoint="TiTorrent.UWP.App">
+            <uap5:AppExecutionAlias>
+              <uap5:ExecutionAlias Alias="TiTorrent.UWP.exe" />
+            </uap5:AppExecutionAlias>
+          </uap5:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <Capability Name="internetClient" />
-    <rescap:Capability Name="broadFileSystemAccess" />
     <uap:Capability Name="removableStorage"/>
   </Capabilities>
+
+  <genTemplate:Metadata>
+    <genTemplate:Item Name="generator" Value="Windows Template Studio"/>
+    <genTemplate:Item Name="wizardVersion" Version="v3.9.20351.2" />
+    <genTemplate:Item Name="templatesVersion" Version="v3.9.20351.2" />
+    <genTemplate:Item Name="projectType" Value="SplitView" />
+    <genTemplate:Item Name="framework" Value="MVVMLight" />
+    <genTemplate:Item Name="platform" Value="Uwp" />
+  </genTemplate:Metadata>
 </Package>

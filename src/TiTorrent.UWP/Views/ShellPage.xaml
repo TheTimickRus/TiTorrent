@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="TiTorrent.UWP.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:TiTorrent.UWP.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:TiTorrent.UWP.Helpers"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
+    <winui:NavigationView
+        x:Name="NavigationView"
+        Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+        IsBackButtonVisible="Visible"
+        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+        IsSettingsVisible="True"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
+
+        <winui:NavigationView.MenuItems>
+            <winui:NavigationViewItem x:Uid="Shell_Main" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.MainViewModel" Icon="AllApps" />
+            <winui:NavigationViewItemSeparator />
+            <winui:NavigationViewItem x:Uid="Shell_Downloaded" Icon="Download" IsEnabled="False" />
+            <winui:NavigationViewItem x:Uid="Shell_Uploaded" Icon="Upload" IsEnabled="False" />
+        </winui:NavigationView.MenuItems>
+
+        <i:Interaction.Behaviors>
+            <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
+                <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Margin="{StaticResource SmallLeftRightMargin}" Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+            </behaviors:NavigationViewHeaderBehavior>
+
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+
+        <Grid>
+            <Frame x:Name="ShellFrame" />
+        </Grid>
+    </winui:NavigationView>
+</Page>
