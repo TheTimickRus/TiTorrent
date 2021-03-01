@@ -12,14 +12,14 @@ namespace TiTorrent.UWP.ViewModels
 
         private ViewModelLocator()
         {
-            SimpleIoc.Default.Register(() => new NavigationServiceEx());
+            SimpleIoc.Default.Register(() => new NavigationService());
             SimpleIoc.Default.Register<ShellViewModel>();
 
             Register<MainViewModel, MainPage>();
             Register<SettingsViewModel, SettingsPage>();
         }
 
-        public NavigationServiceEx NavigationService => SimpleIoc.Default.GetInstance<NavigationServiceEx>();
+        public NavigationService NavigationService => SimpleIoc.Default.GetInstance<NavigationService>();
         public ShellViewModel ShellViewModel => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();

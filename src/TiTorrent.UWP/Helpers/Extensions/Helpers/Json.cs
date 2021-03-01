@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace TiTorrent.UWP.Helpers
+namespace TiTorrent.UWP.Helpers.Extensions.Helpers
 {
     public static class Json
     {

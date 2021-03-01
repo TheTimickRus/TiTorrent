@@ -6,6 +6,7 @@ using TiTorrent.UWP.Helpers;
 using TiTorrent.UWP.Services;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
+using TiTorrent.UWP.Helpers.Extensions;
 
 namespace TiTorrent.UWP.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel.Resources;
 
-namespace TiTorrent.UWP.Helpers
+namespace TiTorrent.UWP.Helpers.Extensions
 {
     internal static class ResourceExtensions
     {

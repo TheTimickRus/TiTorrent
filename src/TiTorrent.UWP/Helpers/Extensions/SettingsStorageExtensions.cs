@@ -3,8 +3,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using TiTorrent.UWP.Helpers.Extensions.Helpers;
 
-namespace TiTorrent.UWP.Helpers
+namespace TiTorrent.UWP.Helpers.Extensions
 {
     public static class SettingsStorageExtensions
     {
