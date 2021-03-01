@@ -117,6 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="AddDialog.Title" xml:space="preserve">
+    <value>Добавить торрент</value>
+  </data>
+  <data name="AddDialog_FolderHeader.Text" xml:space="preserve">
+    <value>Папка сохранения:</value>
+  </data>
+  <data name="AddDialog_TorrentHeader.Text" xml:space="preserve">
+    <value>Торрент:</value>
+  </data>
+  <data name="AddDialog_TorrentInformationHeader.Text" xml:space="preserve">
+    <value>Информация о торренте:</value>
+  </data>
+  <data name="AddDialog_TorrentInformation_Comment.Text" xml:space="preserve">
+    <value>Комментарий: </value>
+  </data>
+  <data name="AddDialog_TorrentInformation_Date.Text" xml:space="preserve">
+    <value>Дата создания: </value>
+  </data>
+  <data name="AddDialog_TorrentInformation_Hash.Text" xml:space="preserve">
+    <value>Хеш: </value>
+  </data>
+  <data name="AddDialog_TorrentInformation_Name.Text" xml:space="preserve">
+    <value>Имя: </value>
+  </data>
+  <data name="AddDialog_TorrentInformation_Size.Text" xml:space="preserve">
+    <value>Размер: </value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Тут нужно что - то написать о программе, мол она классная и т.д.</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>TiTorrent</value>
+  </data>
+  <data name="DeleteDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DeleteDialog_Header.Text" xml:space="preserve">
+    <value>Вы действительно хотите удалить торрент?</value>
+  </data>
+  <data name="DeleteDialog_IsFilesDelete.Content" xml:space="preserve">
+    <value>Удалить загруженные файлы</value>
+  </data>
+  <data name="FirstRunDialog.PrimaryButtonText" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="FirstRunDialog.Title" xml:space="preserve">
+    <value>Приветсвие</value>
+  </data>
+  <data name="FirstRun_Body.Text" xml:space="preserve">
+    <value>Replace the content of this dialog with whatever content is appropriate to your app.
+You might want to explain key features or functionality.
+Don't feel restricted to just text. You can also include images and animations if you wish too.
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
+
+Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
+
+Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</value>
+  </data>
   <data name="MainNavView_CommandBar_AppBarButton_Add.Label" xml:space="preserve">
     <value>Добавить</value>
   </data>
@@ -154,6 +224,36 @@
     <value>Главное</value>
   </data>
   <data name="MainPage_NavigationView_Seeding.Content" xml:space="preserve">
+    <value>Раздаются</value>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>О Программе</value>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>Тут нужно что - то написать о программе, мол она классная и т.д.</value>
+  </data>
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>Персонализация</value>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>Выбор темы</value>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>Темная</value>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>Как в системе</value>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Shell_Downloaded.Content" xml:space="preserve">
+    <value>Загружаются</value>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Главное</value>
+  </data>
+  <data name="Shell_Uploaded.Content" xml:space="preserve">
     <value>Раздаются</value>
   </data>
 </root>

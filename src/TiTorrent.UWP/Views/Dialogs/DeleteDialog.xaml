@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="TiTorrent.UWP.Views.Dialogs.DeleteDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogs="using:TiTorrent.UWP.ViewModels.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Uid="DeleteDialog"
+    Title="{Binding Manager.Torrent.Name}"
+    PrimaryButtonCommand="{Binding BPrimaryCommand}"
+    mc:Ignorable="d">
+
+    <ContentDialog.DataContext>
+        <dialogs:DeleteDialogViewModel />
+    </ContentDialog.DataContext>
+
+    <StackPanel>
+        <TextBlock x:Uid="DeleteDialog_Header" HorizontalAlignment="Right" />
+        <CheckBox x:Uid="DeleteDialog_IsFilesDelete" HorizontalAlignment="Right" IsChecked="{Binding IsDeleteFiles, Mode=TwoWay}" />
+    </StackPanel>
+</ContentDialog>
