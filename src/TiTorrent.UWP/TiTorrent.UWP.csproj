@@ -152,7 +152,7 @@
       <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="MonoTorrent">
-      <Version>2.0.0-alpha.unstable.rev0132</Version>
+      <Version>2.0.0-alpha.unstable.build1</Version>
     </PackageReference>
     <PackageReference Include="MvvmLightStd10">
       <Version>5.4.1.2</Version>
@@ -313,7 +313,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

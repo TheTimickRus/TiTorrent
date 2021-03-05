@@ -91,7 +91,7 @@ namespace TiTorrent.UWP.ViewModels.Dialogs
         public void Update()
         {
             Name = _manager.Torrent.Name;
-            Size = ByteSize.FromBytes(_manager.Size);
+            Size = ByteSize.FromBytes(_manager.Torrent.Size);
             Date = _manager.Torrent.CreationDate;
             Hash = _manager.InfoHash.ToHex();
             Comment = _manager.Torrent.Comment;
