@@ -7,7 +7,6 @@ namespace TiTorrent.UWP.Views.Dialogs
         public AddDialog()
         {
             RequestedTheme = ThemeSelectorService.Theme;
-
             InitializeComponent();
         }
     }

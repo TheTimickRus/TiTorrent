@@ -34,6 +34,7 @@ namespace TiTorrent.UWP.Models
         public string Comment { get; set; }
 
         public int PieceCount { get; set; }
+        public ByteSize PieceLength { get; set; }
         public string DateCompletion { get; set; }
 
         public string CreateBy { get; set; }
@@ -68,7 +69,8 @@ namespace TiTorrent.UWP.Models
             SavePath = manager.SavePath;
             Comment = manager.Torrent.Comment;
 
-            PieceCount = manager.PieceManager.CurrentRequestCountAsync().Result;
+            PieceCount = manager.Torrent.Pieces.Count;
+            PieceLength = ByteSize.FromBytes(manager.PieceLength);
             DateCompletion = DateTime.Today.ToString("g");
 
             CreateBy = manager.Torrent.CreatedBy;

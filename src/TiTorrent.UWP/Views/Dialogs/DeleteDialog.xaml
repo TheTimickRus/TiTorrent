@@ -15,7 +15,7 @@
     </ContentDialog.DataContext>
 
     <StackPanel>
-        <TextBlock x:Uid="DeleteDialog_Header" HorizontalAlignment="Right" />
-        <CheckBox x:Uid="DeleteDialog_IsFilesDelete" HorizontalAlignment="Right" IsChecked="{Binding IsDeleteFiles, Mode=TwoWay}" />
+        <TextBlock x:Uid="Header" HorizontalAlignment="Right" />
+        <CheckBox x:Uid="IsDeleteFiles" HorizontalAlignment="Right" IsChecked="{x:Bind IsDeleteFiles, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

@@ -1,4 +1,4 @@
-﻿using Windows.UI.Xaml;
+﻿using TiTorrent.UWP.Services;
 
 namespace TiTorrent.UWP.Views.Dialogs
 {
@@ -6,7 +6,7 @@ namespace TiTorrent.UWP.Views.Dialogs
     {
         public FirstRunDialog()
         {
-            RequestedTheme = ((FrameworkElement) Window.Current.Content).RequestedTheme;
+            RequestedTheme = ThemeSelectorService.Theme;
             InitializeComponent();
         }
     }

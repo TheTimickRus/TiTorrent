@@ -179,9 +179,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-us\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
@@ -209,9 +206,6 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\CmdLineActivationSamplePage.xaml.cs">
-      <DependentUpon>CmdLineActivationSamplePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\AddDialog.xaml.cs">
       <DependentUpon>AddDialog.xaml</DependentUpon>
     </Compile>
@@ -262,10 +256,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CmdLineActivationSamplePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Dialogs\AddDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -312,7 +302,18 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="Settings.XamlStyler" />
-    <PRIResource Include="Strings\ru-ru\Resources.resw" />
+    <PRIResource Include="Strings\ru-ru\AddDialog.resw" />
+    <PRIResource Include="Strings\ru-ru\DeleteDialog.resw" />
+    <PRIResource Include="Strings\ru-ru\FirstRunDialog.resw" />
+    <PRIResource Include="Strings\ru-ru\ShellPage.resw" />
+    <PRIResource Include="Strings\ru-ru\SettingsPage.resw" />
+    <PRIResource Include="Strings\ru-ru\MainPage.resw" />
+    <PRIResource Include="Strings\en-us\AddDialog.resw" />
+    <PRIResource Include="Strings\en-us\DeleteDialog.resw" />
+    <PRIResource Include="Strings\en-us\FirstRunDialog.resw" />
+    <PRIResource Include="Strings\en-us\MainPage.resw" />
+    <PRIResource Include="Strings\en-us\SettingsPage.resw" />
+    <PRIResource Include="Strings\en-us\ShellPage.resw" />
     <None Include="TiTorrent.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +322,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

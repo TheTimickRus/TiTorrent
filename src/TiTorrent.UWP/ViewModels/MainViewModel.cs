@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TiTorrent.UWP.Helpers;
@@ -88,7 +87,7 @@ namespace TiTorrent.UWP.ViewModels
             _clientEngine.CriticalException += async (_, args) =>
             {
                 await new MessageDialog(args.Exception.Message, "Error!").ShowAsync();
-                Log.Instance.Error(args.Exception, $"Произошла ошибка в движке!");
+                Log.Instance.Error(args.Exception, "Произошла ошибка в движке!");
             };
 
             AppDomain.CurrentDomain.UnhandledException += async (_, args) =>
@@ -114,15 +113,11 @@ namespace TiTorrent.UWP.ViewModels
 
                 // Если торрент не выбран - выходим
                 if (manager is null)
-                {
-                    throw new Exception("Вы не выбрали торрент!");
-                }
+                    return;
 
                 // Проверяем, на повтор
                 if (_clientEngine.Torrents.FirstOrDefault(m => m.Equals(manager)) is not null)
-                {
                     throw new Exception("Торрент уже существует!");
-                }
 
                 // Добавляем в коллекцию и регистрируем в движке
                 TorrentsCollection.Add(new ListViewItemModel(manager));
@@ -135,9 +130,7 @@ namespace TiTorrent.UWP.ViewModels
                 manager.TorrentStateChanged += (_, args) =>
                 {
                     if (args.NewState == TorrentState.Error)
-                    {
                         Log.Instance.Error(args.TorrentManager.Error.Exception, $"Произошла ошибка в ({args.TorrentManager})!");
-                    }
                 };
 
                 // Логгируемся
@@ -326,7 +319,7 @@ namespace TiTorrent.UWP.ViewModels
         private static async Task<ClientEngine> LoadState()
         {
             var engine = new ClientEngine();
-
+            
             if (File.Exists(FastResumePath))
             {
                 var fastResume = BEncodedValue.Decode<BEncodedDictionary>(await File.ReadAllBytesAsync(FastResumePath));

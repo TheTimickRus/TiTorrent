@@ -255,8 +255,11 @@
                                     VerticalAlignment="Top">
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Части: " />
-                                        <TextBlock Text="{x:Bind ViewModel.MainPivotModel.PieceCount, Mode=OneWay}" />
+                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Загружено частей: " />
+                                        <TextBlock>
+                                            <Run Text="{x:Bind ViewModel.MainPivotModel.PieceCount, Mode=OneWay}" />
+                                            <Run Text="{x:Bind ViewModel.MainPivotModel.PieceLength, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}({0})'}" />
+                                        </TextBlock>
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
