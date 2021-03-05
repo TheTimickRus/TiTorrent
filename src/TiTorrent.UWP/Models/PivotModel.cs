@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ByteSizeLib;
 using GalaSoft.MvvmLight;
+using MonoTorrent;
 using MonoTorrent.Client;
 
 namespace TiTorrent.UWP.Models
@@ -40,7 +41,7 @@ namespace TiTorrent.UWP.Models
 
 
         // Файлы
-        public ObservableCollection<ITorrentFileInfo> TorrentFiles { get; set; } = new();
+        public ObservableCollection<TorrentFile> TorrentFiles { get; set; } = new();
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace TiTorrent.UWP.Models
 
             // Файлы
             TorrentFiles.Clear();
-            manager.Files.ToList().ForEach(info => TorrentFiles.Add(info));
+            manager.Torrent.Files.ToList().ForEach(info => TorrentFiles.Add(info));
         }
 
         public void UpdateProp(TorrentManager manager)
@@ -109,7 +110,7 @@ namespace TiTorrent.UWP.Models
 
             // Файлы
             TorrentFiles.Clear();
-            manager.Files.ToList().ForEach(info => TorrentFiles.Add(info));
+            manager.Torrent.Files.ToList().ForEach(info => TorrentFiles.Add(info));
         }
     }
 }

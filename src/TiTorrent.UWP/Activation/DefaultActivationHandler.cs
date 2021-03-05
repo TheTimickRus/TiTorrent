@@ -10,7 +10,7 @@ namespace TiTorrent.UWP.Activation
     {
         private readonly string _navElement;
 
-        public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        public NavigationService NavigationService => ViewModelLocator.Current.NavigationService;
 
         public DefaultActivationHandler(Type navElement)
         {
@@ -26,8 +26,6 @@ namespace TiTorrent.UWP.Activation
             }
 
             NavigationService.Navigate(_navElement, arguments);
-
-            //Singleton<ToastNotificationsService>.Instance.ShowToastNotificationSample();
 
             await Task.CompletedTask;
         }

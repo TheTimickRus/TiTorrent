@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TiTorrent.UWP.Services
 {
-    public class NavigationServiceEx
+    public class NavigationService
     {
         public event NavigatedEventHandler Navigated;
         public event NavigationFailedEventHandler NavigationFailed;

@@ -34,7 +34,7 @@ namespace TiTorrent.UWP.ViewModels
             set => Set(ref _isBackEnabled, value);
         }
 
-        public static NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        public static NavigationService NavigationService => ViewModelLocator.Current.NavigationService;
 
         public WinUI.NavigationViewItem Selected
         {
