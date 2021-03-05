@@ -77,7 +77,6 @@ namespace TiTorrent.UWP.Services
         {
             yield return Singleton<ToastNotificationsService>.Instance;
             yield return Singleton<SuspendAndResumeService>.Instance;
-            yield return Singleton<CommandLineActivationHandler>.Instance;
         }
 
         public bool IsInteractive(object args)
