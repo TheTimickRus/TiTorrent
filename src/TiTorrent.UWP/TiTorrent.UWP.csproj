@@ -152,7 +152,7 @@
       <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="MonoTorrent">
-      <Version>2.0.0-alpha.unstable.rev0132</Version>
+      <Version>2.0.0-alpha.unstable.build1</Version>
     </PackageReference>
     <PackageReference Include="MvvmLightStd10">
       <Version>5.4.1.2</Version>
@@ -175,16 +175,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
-    <Compile Include="Activation\CommandLineActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Converters\FullPathToFileNameConverter.cs" />
     <Compile Include="Helpers\AppState.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Helpers\Extensions\Helpers\Json.cs" />
     <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
-    <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\Extensions\SettingsStorageExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Models\ListViewItemModel.cs" />
@@ -194,13 +193,8 @@
     <Compile Include="Services\Dialogs\AddDisplayService.cs" />
     <Compile Include="Services\Dialogs\DeleteDisplayService.cs" />
     <Compile Include="Services\Dialogs\FirstRunDisplayService.cs" />
-    <Compile Include="Services\NavigationServiceEx.cs" />
-    <Compile Include="Services\SuspendAndResumeArgs.cs" />
-    <Compile Include="Services\SuspendAndResumeService.cs" />
-    <Compile Include="Services\SuspensionState.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
-    <Compile Include="Services\ToastNotificationsService.cs" />
-    <Compile Include="Services\ToastNotificationsService.Samples.cs" />
     <Compile Include="ViewModels\Dialogs\AddDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\DeleteDialogViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -295,7 +289,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ResourceExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -319,7 +313,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

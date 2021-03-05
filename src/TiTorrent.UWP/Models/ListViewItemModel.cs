@@ -23,7 +23,7 @@ namespace TiTorrent.UWP.Models
             Hash = manager.InfoHash.ToHex();
             Name = manager.Torrent.Name;
             State = manager.State.ToString();
-            TotalSize = ByteSize.FromBytes(manager.Size);
+            TotalSize = ByteSize.FromBytes(manager.Torrent.Size);
         }
 
 
