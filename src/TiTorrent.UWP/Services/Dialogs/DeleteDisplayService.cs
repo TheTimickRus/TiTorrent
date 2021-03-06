@@ -1,12 +1,10 @@
-﻿using System;
+﻿using MonoTorrent.Client;
+using System;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight.Messaging;
-using MonoTorrent.Client;
 using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Views.Dialogs;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml.Controls;
 
 namespace TiTorrent.UWP.Services.Dialogs
 {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TiTorrent.UWP.Helpers;
+using TiTorrent.UWP.Helpers.Extensions;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using TiTorrent.UWP.Helpers.Extensions;
 
 namespace TiTorrent.UWP.Services
 {

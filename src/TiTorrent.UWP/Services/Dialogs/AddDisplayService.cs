@@ -1,9 +1,10 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using MonoTorrent.Client;
+﻿using MonoTorrent.Client;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Views.Dialogs;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml.Controls;
 
 namespace TiTorrent.UWP.Services.Dialogs
 {
@@ -13,17 +14,13 @@ namespace TiTorrent.UWP.Services.Dialogs
         {
             TorrentManager manager = null;
 
-            var dialog = new AddDialog();
-
-            Messenger.Default.Register<TorrentManager>(this, value => manager = value);
-
-            if (await dialog.ShowAsync() != ContentDialogResult.Primary)
-            {
-                Messenger.Default.Unregister<TorrentManager>(this);
-                return null;
-            }
-
-            Messenger.Default.Unregister<TorrentManager>(this);
+            await CoreApplication.GetCurrentView().Dispatcher.RunTaskAsync(
+                async () =>
+                {
+                    var addDialog = new AddDialog();
+                    if (await addDialog.ShowAsync() == ContentDialogResult.Primary)
+                        manager = addDialog.Manager;
+                });
 
             return manager;
         }
