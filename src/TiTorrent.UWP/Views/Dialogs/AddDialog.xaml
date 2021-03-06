@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogs="using:TiTorrent.UWP.ViewModels.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Uid="AddDialog"
+    x:Uid="/AddDialog/AddDialog"
     PrimaryButtonCommand="{Binding BPrimaryCommand}"
     mc:Ignorable="d">
 
@@ -14,7 +14,7 @@
     </ContentDialog.DataContext>
 
     <StackPanel>
-        <TextBlock x:Uid="AddDialog_TorrentHeader" Margin="5" FontSize="16" />
+        <TextBlock x:Uid="/AddDialog/TorrentHeader" Margin="5" FontSize="16" />
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,7 +38,7 @@
             </Button>
         </Grid>
 
-        <TextBlock x:Uid="AddDialog_FolderHeader" Margin="5" FontSize="16" />
+        <TextBlock x:Uid="/AddDialog/FolderHeader" Margin="5" FontSize="16" />
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -62,26 +62,26 @@
             </Button>
         </Grid>
 
-        <TextBlock x:Uid="AddDialog_TorrentInformationHeader" Margin="5" FontSize="16" />
+        <TextBlock x:Uid="/AddDialog/TorrentInformationHeader" Margin="5" FontSize="16" />
 
         <TextBlock Margin="5,5,5,0">
-            <Run x:Uid="AddDialog_TorrentInformation_Name" />
+            <Run x:Uid="/AddDialog/TorrentInformation_Name" />
             <Run Text="{Binding Name}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
-            <Run x:Uid="AddDialog_TorrentInformation_Size" Text="Размер: " />
+            <Run x:Uid="/AddDialog/TorrentInformation_Size" />
             <Run Text="{Binding Size}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
-            <Run x:Uid="AddDialog_TorrentInformation_Date" Text="Дата создания: " />
+            <Run x:Uid="/AddDialog/TorrentInformation_Date" />
             <Run Text="{Binding Date}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,0">
-            <Run x:Uid="AddDialog_TorrentInformation_Hash" Text="Хеш: " />
+            <Run x:Uid="/AddDialog/TorrentInformation_Hash" />
             <Run Text="{Binding Hash}" />
         </TextBlock>
         <TextBlock Margin="5,0,5,5">
-            <Run x:Uid="AddDialog_TorrentInformation_Comment" Text="Комментарий: " />
+            <Run x:Uid="/AddDialog/TorrentInformation_Comment" />
             <Run Text="{Binding Comment}" />
         </TextBlock>
     </StackPanel>

@@ -32,13 +32,13 @@
             OverflowButtonVisibility="Collapsed">
 
             <AppBarButton
-                x:Uid="MainNavView_CommandBar_AppBarButton_Add"
+                x:Uid="/MainPage/CommandBar_AppBarButton_Add"
                 Command="{x:Bind ViewModel.BAddCommand, Mode=OneWay}"
                 Icon="Add"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
-                x:Uid="MainNavView_CommandBar_AppBarButton_Delete"
+                x:Uid="/MainPage/CommandBar_AppBarButton_Delete"
                 Command="{x:Bind ViewModel.BDeleteCommand, Mode=OneWay}"
                 Icon="Delete"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
@@ -46,19 +46,19 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="MainNavView_CommandBar_AppBarButton_Start"
+                x:Uid="/MainPage/CommandBar_AppBarButton_Start"
                 Command="{x:Bind ViewModel.BStartCommand, Mode=OneWay}"
                 Icon="Play"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
-                x:Uid="MainNavView_CommandBar_AppBarButton_Pause"
+                x:Uid="/MainPage/CommandBar_AppBarButton_Pause"
                 Command="{x:Bind ViewModel.BPauseCommand, Mode=OneWay}"
                 Icon="Pause"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
 
             <AppBarButton
-                x:Uid="MainNavView_CommandBar_AppBarButton_Stop"
+                x:Uid="/MainPage/CommandBar_AppBarButton_Stop"
                 Command="{x:Bind ViewModel.BStopCommand, Mode=OneWay}"
                 Icon="Stop"
                 Style="{ThemeResource AppBarButtonRevealStyle}" />
@@ -68,13 +68,13 @@
             <ListView.Resources>
                 <MenuFlyout x:Key="ListViewItemFlyout">
                     <MenuFlyout.Items>
-                        <MenuFlyoutItem x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem0" Command="{x:Bind ViewModel.BStartCommand}" Icon="Play" />
-                        <MenuFlyoutItem x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem1" Command="{x:Bind ViewModel.BPauseCommand}" Icon="Pause" />
-                        <MenuFlyoutItem x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem2" Command="{x:Bind ViewModel.BStopCommand}" Icon="Stop" />
+                        <MenuFlyoutItem x:Uid="/MainPage/ListViewItemFlyout_MenuFlyoutItem0" Command="{x:Bind ViewModel.BStartCommand}" Icon="Play" />
+                        <MenuFlyoutItem x:Uid="/MainPage/ListViewItemFlyout_MenuFlyoutItem1" Command="{x:Bind ViewModel.BPauseCommand}" Icon="Pause" />
+                        <MenuFlyoutItem x:Uid="/MainPage/ListViewItemFlyout_MenuFlyoutItem2" Command="{x:Bind ViewModel.BStopCommand}" Icon="Stop" />
                         <MenuFlyoutSeparator />
-                        <MenuFlyoutItem x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem4" Command="{x:Bind ViewModel.BDeleteCommand}" Icon="Delete" />
+                        <MenuFlyoutItem x:Uid="/MainPage/ListViewItemFlyout_MenuFlyoutItem4" Command="{x:Bind ViewModel.BDeleteCommand}" Icon="Delete" />
                         <MenuFlyoutSeparator />
-                        <MenuFlyoutItem x:Uid="MainNavView_ListViewItemFlyout_MenuFlyoutItem6" Command="{x:Bind ViewModel.FOpenFolderCommand}" Icon="Folder" />
+                        <MenuFlyoutItem x:Uid="/MainPage/ListViewItemFlyout_MenuFlyoutItem6" Command="{x:Bind ViewModel.FOpenFolderCommand}" Icon="Folder" />
                     </MenuFlyout.Items>
                 </MenuFlyout>
             </ListView.Resources>

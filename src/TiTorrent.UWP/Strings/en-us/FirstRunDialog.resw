@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Body.Text" xml:space="preserve">
+    <value>Спасибо за загрузку!</value>
+  </data>
   <data name="FirstRunDialog.PrimaryButtonText" xml:space="preserve">
     <value>ОК</value>
   </data>
   <data name="FirstRunDialog.Title" xml:space="preserve">
     <value>Приветсвие</value>
-  </data>
-  <data name="FirstRun_Body.Text" xml:space="preserve">
-    <value>Спасибо за загрузку!</value>
   </data>
 </root>

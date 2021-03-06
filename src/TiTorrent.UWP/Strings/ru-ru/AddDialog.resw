@@ -126,28 +126,28 @@
   <data name="AddDialog.Title" xml:space="preserve">
     <value>Добавить торрент</value>
   </data>
-  <data name="AddDialog_FolderHeader.Text" xml:space="preserve">
+  <data name="FolderHeader.Text" xml:space="preserve">
     <value>Папка сохранения:</value>
   </data>
-  <data name="AddDialog_TorrentHeader.Text" xml:space="preserve">
+  <data name="TorrentHeader.Text" xml:space="preserve">
     <value>Торрент:</value>
   </data>
-  <data name="AddDialog_TorrentInformationHeader.Text" xml:space="preserve">
+  <data name="TorrentInformationHeader.Text" xml:space="preserve">
     <value>Информация о торренте:</value>
   </data>
-  <data name="AddDialog_TorrentInformation_Comment.Text" xml:space="preserve">
+  <data name="TorrentInformation_Comment.Text" xml:space="preserve">
     <value>Комментарий: </value>
   </data>
-  <data name="AddDialog_TorrentInformation_Date.Text" xml:space="preserve">
+  <data name="TorrentInformation_Date.Text" xml:space="preserve">
     <value>Дата создания: </value>
   </data>
-  <data name="AddDialog_TorrentInformation_Hash.Text" xml:space="preserve">
+  <data name="TorrentInformation_Hash.Text" xml:space="preserve">
     <value>Хеш: </value>
   </data>
-  <data name="AddDialog_TorrentInformation_Name.Text" xml:space="preserve">
+  <data name="TorrentInformation_Name.Text" xml:space="preserve">
     <value>Имя: </value>
   </data>
-  <data name="AddDialog_TorrentInformation_Size.Text" xml:space="preserve">
+  <data name="TorrentInformation_Size.Text" xml:space="preserve">
     <value>Размер: </value>
   </data>
 </root>

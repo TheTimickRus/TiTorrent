@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Settings_About.Text" xml:space="preserve">
+  <data name="About.Text" xml:space="preserve">
     <value>О Программе</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+  <data name="AboutDescription.Text" xml:space="preserve">
     <value>Тут нужно что - то написать о программе, мол она классная и т.д.</value>
   </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">
+  <data name="Personalization.Text" xml:space="preserve">
     <value>Персонализация</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
+  <data name="Theme.Text" xml:space="preserve">
     <value>Тема</value>
   </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+  <data name="Theme_Dark.Content" xml:space="preserve">
     <value>Темная</value>
   </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+  <data name="Theme_Default.Content" xml:space="preserve">
     <value>Стандартная Windows</value>
   </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+  <data name="Theme_Light.Content" xml:space="preserve">
     <value>Светлая</value>
   </data>
 </root>

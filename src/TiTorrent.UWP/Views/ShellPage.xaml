@@ -26,10 +26,10 @@
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
 
         <winui:NavigationView.MenuItems>
-            <winui:NavigationViewItem x:Uid="Shell_Main" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.MainViewModel" Icon="AllApps" />
+            <winui:NavigationViewItem x:Uid="/ShellPage/Main" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.MainViewModel" Icon="AllApps" />
             <winui:NavigationViewItemSeparator />
-            <winui:NavigationViewItem x:Uid="Shell_Downloaded" Icon="Download" IsEnabled="False" />
-            <winui:NavigationViewItem x:Uid="Shell_Uploaded" Icon="Upload" IsEnabled="False" />
+            <winui:NavigationViewItem x:Uid="/ShellPage/Downloaded" Icon="Download" IsEnabled="False" />
+            <winui:NavigationViewItem x:Uid="/ShellPage/Uploaded" Icon="Upload" IsEnabled="False" />
         </winui:NavigationView.MenuItems>
 
         <i:Interaction.Behaviors>

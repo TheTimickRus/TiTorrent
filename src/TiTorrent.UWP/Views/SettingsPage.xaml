@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:TiTorrent.UWP.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helper="using:TiTorrent.UWP.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Windows.UI.Xaml"
     Style="{StaticResource PageStyle}"
@@ -15,15 +14,15 @@
     </Page.Resources>
 
     <Grid Margin="{StaticResource MediumLeftRightMargin}">
-        <StackPanel x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+        <StackPanel>
+            <TextBlock x:Uid="/SettingsPage/Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
+                <TextBlock x:Uid="/SettingsPage/Theme" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
-                        x:Uid="Settings_Theme_Light"
+                        x:Uid="/SettingsPage/Theme_Light"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
                         FontSize="15"
                         GroupName="AppTheme"
@@ -35,7 +34,7 @@
                     </RadioButton>
 
                     <RadioButton
-                        x:Uid="Settings_Theme_Dark"
+                        x:Uid="/SettingsPage/Theme_Dark"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
                         FontSize="15"
                         GroupName="AppTheme"
@@ -47,7 +46,7 @@
                     </RadioButton>
 
                     <RadioButton
-                        x:Uid="Settings_Theme_Default"
+                        x:Uid="/SettingsPage/Theme_Default"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
                         FontSize="15"
                         GroupName="AppTheme"
@@ -60,7 +59,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Uid="/SettingsPage/About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />

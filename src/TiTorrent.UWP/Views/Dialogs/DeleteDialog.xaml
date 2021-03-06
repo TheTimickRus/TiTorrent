@@ -5,9 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogs="using:TiTorrent.UWP.ViewModels.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Uid="DeleteDialog"
-    Title="{Binding Manager.Torrent.Name}"
-    PrimaryButtonCommand="{Binding BPrimaryCommand}"
+    x:Uid="/DeleteDialog/DeleteDialog"
+    Title="{x:Bind Manager.Torrent.Name}"
     mc:Ignorable="d">
 
     <ContentDialog.DataContext>
@@ -15,7 +14,7 @@
     </ContentDialog.DataContext>
 
     <StackPanel>
-        <TextBlock x:Uid="Header" HorizontalAlignment="Right" />
-        <CheckBox x:Uid="IsDeleteFiles" HorizontalAlignment="Right" IsChecked="{x:Bind IsDeleteFiles, Mode=TwoWay}" />
+        <TextBlock x:Uid="/DeleteDialog/Header" HorizontalAlignment="Right" />
+        <CheckBox x:Uid="/DeleteDialog/IsDeleteFiles" HorizontalAlignment="Right" IsChecked="{x:Bind IsDeleteFiles, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

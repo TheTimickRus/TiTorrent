@@ -185,6 +185,7 @@
     <Compile Include="Converters\FullPathToFileNameConverter.cs" />
     <Compile Include="Helpers\AppState.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\Extensions\DispatcherTaskExtensions.cs" />
     <Compile Include="Helpers\Extensions\Helpers\Json.cs" />
     <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
