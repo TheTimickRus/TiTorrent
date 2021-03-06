@@ -2,11 +2,10 @@
 using GalaSoft.MvvmLight.Command;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TiTorrent.UWP.Helpers;
+using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Services;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
-using TiTorrent.UWP.Helpers.Extensions;
 
 namespace TiTorrent.UWP.ViewModels
 {

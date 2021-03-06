@@ -28,8 +28,8 @@
         <winui:NavigationView.MenuItems>
             <winui:NavigationViewItem x:Uid="/ShellPage/Main" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.MainViewModel" Icon="AllApps" />
             <winui:NavigationViewItemSeparator />
-            <winui:NavigationViewItem x:Uid="/ShellPage/Downloaded" Icon="Download" IsEnabled="False" />
-            <winui:NavigationViewItem x:Uid="/ShellPage/Uploaded" Icon="Upload" IsEnabled="False" />
+            <winui:NavigationViewItem x:Uid="/ShellPage/Downloaded" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.DownloadViewModel" Icon="Download" />
+            <winui:NavigationViewItem x:Uid="/ShellPage/Uploaded" helpers:NavHelper.NavigateTo="TiTorrent.UWP.ViewModels.UploadViewModel" Icon="Upload" />
         </winui:NavigationView.MenuItems>
 
         <i:Interaction.Behaviors>

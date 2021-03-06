@@ -18,6 +18,7 @@ using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using TiTorrent.UWP.Helpers.Extensions;
 
 namespace TiTorrent.UWP.ViewModels
 {
@@ -34,13 +35,12 @@ namespace TiTorrent.UWP.ViewModels
 
         #region PrivateProps
 
-        private bool _isAlreadyRun = false;
+        private bool _isAlreadyRun;
 
         private static readonly string TorrentsFolderPath = Path.Combine($"{ApplicationData.Current.LocalFolder.Path}", "State", "Torrents");
         private static readonly string DhtNodesPath = $"{ApplicationData.Current.LocalFolder.Path}\\State\\DhtNodes.dat";
         private static readonly string FastResumePath = $"{ApplicationData.Current.LocalFolder.Path}\\State\\FastResume.dat";
 
-        private readonly DispatcherTimer _timer = new();
         private ClientEngine _clientEngine = new();
 
         #endregion
@@ -127,11 +127,7 @@ namespace TiTorrent.UWP.ViewModels
                 await manager.StartAsync();
 
                 // Отслеживаем смену State
-                manager.TorrentStateChanged += (_, args) =>
-                {
-                    if (args.NewState == TorrentState.Error)
-                        Log.Instance.Error(args.TorrentManager.Error.Exception, $"Произошла ошибка в ({args.TorrentManager})!");
-                };
+                manager.TorrentStateChanged += ManagerOnTorrentStateChanged;
 
                 // Логгируемся
                 Log.Instance.Information($"Торрент {manager} успешно добавлен!");
@@ -262,58 +258,114 @@ namespace TiTorrent.UWP.ViewModels
 
         #region Methods
 
-        private void MainTimer(bool startTimer = true)
+        private async void ManagerOnTorrentStateChanged(object sender, TorrentStateChangedEventArgs e)
         {
-            if (startTimer)
+            if (sender is not TorrentManager manager)
+                return;
+
+            switch (e.OldState)
             {
-                _timer.Interval = TimeSpan.FromSeconds(1);
-                _timer.Tick += (_, _) =>
-                {
-                    if (_clientEngine == null || _clientEngine.Torrents.Count == 0)
-                    {
-                        SelectedTorrent = null;
-                        MainPivotModel = null;
-                        
-                        return;
-                    }
-
-                    // Обновляем данные в ListView
-                    _clientEngine.Torrents
-                        .ToList()
-                        .ForEach(manager =>
+                case TorrentState.Downloading:
+                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                        () =>
                         {
-                            TorrentsCollection
-                                .FirstOrDefault(model => model.Hash.Equals(manager.InfoHash.ToHex()))?
-                                .UpdateProp(manager);
+                            var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
+                            if (listViewItem is not null)
+                                ViewModelLocator.Current.DownloadViewModel.TorrentsCollection.Remove(listViewItem);
 
+                            return Task.CompletedTask;
+                        });
+                    break;
+
+                case TorrentState.Seeding:
+                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                        () =>
+                        {
+                            var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
+                            if (listViewItem is not null)
+                                ViewModelLocator.Current.UploadViewModel.TorrentsCollection.Remove(listViewItem);
+
+                            return Task.CompletedTask;
+                        });
+                    break;
+            }
+
+            switch (e.NewState)
+            {
+                case TorrentState.Downloading:
+                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                        () =>
+                        {
+                            var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
+                            if (listViewItem is not null && manager.Complete is false)
+                                ViewModelLocator.Current.DownloadViewModel.TorrentsCollection.Add(listViewItem);
+
+                            return Task.CompletedTask;
+                        });
+                    break;
+
+                case TorrentState.Seeding:
+                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                        () =>
+                        {
+                            var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
+                            if (listViewItem is not null && manager.Complete)
+                                ViewModelLocator.Current.UploadViewModel.TorrentsCollection.Add(listViewItem);
+
+                            return Task.CompletedTask;
                         });
 
-                    // Обновляем данные в Pivot
-                    if (SelectedTorrent != null)
-                    {
-                        var manager = _clientEngine.Torrents.First(m => m.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+                    Log.Instance.Information($"Торрент {manager.Torrent.Name} успешно загружен!");
+                    break;
 
-                        if (MainPivotModel != null && MainPivotModel.Hash == SelectedTorrent.Hash)
+
+                case TorrentState.Error:
+                    Log.Instance.Error(e.TorrentManager.Error.Exception, $"Произошла ошибка в ({e.TorrentManager})!");
+                    break;
+            }
+        }
+        private void MainTimer()
+        {
+            // Создаем Timer
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            timer.Start();
+
+            // Событие
+            timer.Tick += async (_, _) =>
+            {
+                await CoreApplication.GetCurrentView().Dispatcher.RunTaskAsync(
+                    () =>
+                    {
+                        // Если нет торрентов - выходим
+                        if (_clientEngine == null || _clientEngine.Torrents.Count == 0)
                         {
-                            MainPivotModel.UpdateProp(manager);
+                            SelectedTorrent = null;
+                            MainPivotModel = null;
+
+                            return Task.CompletedTask;
+                        }
+
+                        // Обновляем данные в ListView
+                        _clientEngine.Torrents.ToList().ForEach(manager => TorrentsCollection.First(model => model.Hash.Equals(manager.InfoHash.ToHex())).UpdateProp(manager));
+
+                        // Обновляем данные в Pivot
+                        if (SelectedTorrent != null)
+                        {
+                            var manager = _clientEngine.Torrents.First(m => m.InfoHash.ToHex().Equals(SelectedTorrent.Hash));
+
+                            if (MainPivotModel != null && MainPivotModel.Hash == SelectedTorrent.Hash)
+                                MainPivotModel.UpdateProp(manager);
+                            else
+                                MainPivotModel = new PivotModel(manager);
                         }
                         else
                         {
-                            MainPivotModel = new PivotModel(manager);
+                            MainPivotModel = null;
                         }
-                    }
-                    else
-                    {
-                        MainPivotModel = null;
-                    }
-                };
 
-                _timer.Start();
-            }
-            else
-            {
-                _timer?.Stop();
-            }
+                        return Task.CompletedTask;
+                    });
+            };
         }
 
         private static async Task<ClientEngine> LoadState()
@@ -371,9 +423,7 @@ namespace TiTorrent.UWP.ViewModels
                 torrents.ToList().ForEach(manager =>
                 {
                     if (manager.HashChecked)
-                    {
                         fastResume.Add(manager.Torrent.InfoHash.ToHex(), manager.SaveFastResume().Encode());
-                    }
                 });
 
                 if (!Directory.Exists(Path.GetDirectoryName(DhtNodesPath)))
@@ -386,12 +436,11 @@ namespace TiTorrent.UWP.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.Fail($"\n{ex.Message}\n{ex.StackTrace}\n");
+                Log.Instance.Error(ex, ex.Message);
             }
             finally
             {
                 _clientEngine.Dispose();
-                //Thread.Sleep(2000);
             }
         }
 

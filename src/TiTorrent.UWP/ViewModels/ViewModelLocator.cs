@@ -16,6 +16,8 @@ namespace TiTorrent.UWP.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
 
             Register<MainViewModel, MainPage>();
+            Register<DownloadViewModel, DownloadPage>();
+            Register<UploadViewModel, UploadPage>();
             Register<SettingsViewModel, SettingsPage>();
         }
 
@@ -23,6 +25,8 @@ namespace TiTorrent.UWP.ViewModels
         public ShellViewModel ShellViewModel => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public DownloadViewModel DownloadViewModel => SimpleIoc.Default.GetInstance<DownloadViewModel>();
+        public UploadViewModel UploadViewModel => SimpleIoc.Default.GetInstance<UploadViewModel>();
         public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
         public void Register<TVm, TV>() where TVm : class

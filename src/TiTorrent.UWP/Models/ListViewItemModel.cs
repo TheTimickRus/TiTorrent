@@ -6,6 +6,9 @@ namespace TiTorrent.UWP.Models
 {
     public class ListViewItemModel : ObservableObject
     {
+        public static TorrentManager Manager { get; set; }
+
+
         public string Hash { get; set; }
 
         public string Name { get; set; }
@@ -20,6 +23,8 @@ namespace TiTorrent.UWP.Models
 
         public ListViewItemModel(TorrentManager manager)
         {
+            Manager = manager;
+
             Hash = manager.InfoHash.ToHex();
             Name = manager.Torrent.Name;
             State = manager.State.ToString();
@@ -27,13 +32,15 @@ namespace TiTorrent.UWP.Models
         }
 
 
-        public void UpdateProp(TorrentManager torrentManager)
+        public void UpdateProp(TorrentManager manager)
         {
-            State = torrentManager.State.ToString();
-            Progress = torrentManager.Progress;
-            DownloadedSize = ByteSize.FromBytes(torrentManager.Monitor.DataBytesDownloaded);
-            DownloadSpeed = ByteSize.FromBytes(torrentManager.Monitor.DownloadSpeed);
-            UploadSpeed = ByteSize.FromBytes(torrentManager.Monitor.UploadSpeed);
+            Manager = manager;
+
+            State = manager.State.ToString();
+            Progress = manager.Progress;
+            DownloadedSize = ByteSize.FromBytes(manager.Monitor.DataBytesDownloaded);
+            DownloadSpeed = ByteSize.FromBytes(manager.Monitor.DownloadSpeed);
+            UploadSpeed = ByteSize.FromBytes(manager.Monitor.UploadSpeed);
         }
     }
 }
