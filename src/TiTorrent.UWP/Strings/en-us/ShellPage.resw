@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Downloaded.Content" xml:space="preserve">
-    <value>Загружаются</value>
+    <value>Downloading</value>
   </data>
   <data name="Main.Content" xml:space="preserve">
-    <value>Главное</value>
+    <value>Main</value>
   </data>
   <data name="Uploaded.Content" xml:space="preserve">
-    <value>Раздаются</value>
+    <value>Seeding</value>
   </data>
 </root>

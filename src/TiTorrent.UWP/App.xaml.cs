@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using TiTorrent.UWP.Helpers;
 using TiTorrent.UWP.Services;
 using TiTorrent.UWP.ViewModels;
@@ -6,6 +8,7 @@ using TiTorrent.UWP.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 
 namespace TiTorrent.UWP
@@ -37,6 +40,13 @@ namespace TiTorrent.UWP
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+            var ci = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+            ApplicationLanguages.PrimaryLanguageOverride = "en-US";
+            Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Reset();
+            Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse().Reset();
+
             if (args.PrelaunchActivated is false)
             {
                 await ActivationService.ActivateAsync(args);

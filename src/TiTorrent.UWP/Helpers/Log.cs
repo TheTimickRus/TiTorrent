@@ -14,7 +14,7 @@ namespace TiTorrent.UWP.Helpers
         {
             return new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .WriteTo.File(Path.Combine(AppState.LogDirectory, $"Log ({DateTime.Now.ToString("G").Replace(':', '-')}).lg"))
+                .WriteTo.File(Path.Combine(AppState.LogDirectory, $"Log ({DateTime.Now.ToString("s").Replace(':', '-')}).lg"))
                 .CreateLogger();
         }
     }

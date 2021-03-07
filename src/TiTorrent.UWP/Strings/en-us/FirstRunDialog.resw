@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Body.Text" xml:space="preserve">
-    <value>Спасибо за загрузку!</value>
+    <value>Thank you for downloading!</value>
   </data>
   <data name="FirstRunDialog.PrimaryButtonText" xml:space="preserve">
     <value>ОК</value>
   </data>
   <data name="FirstRunDialog.Title" xml:space="preserve">
-    <value>Приветсвие</value>
+    <value>Welcome</value>
   </data>
 </root>

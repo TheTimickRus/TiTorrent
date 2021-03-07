@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Add</value>
   </data>
   <data name="AddDialog.SecondaryButtonText" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Cancel</value>
   </data>
   <data name="AddDialog.Title" xml:space="preserve">
-    <value>Добавить торрент</value>
+    <value>Add torrent</value>
   </data>
   <data name="FolderHeader.Text" xml:space="preserve">
-    <value>Папка сохранения:</value>
+    <value>Save Folder:</value>
   </data>
   <data name="TorrentHeader.Text" xml:space="preserve">
-    <value>Торрент:</value>
+    <value>Torrent:</value>
   </data>
   <data name="TorrentInformationHeader.Text" xml:space="preserve">
-    <value>Информация о торренте:</value>
+    <value>Information:</value>
   </data>
   <data name="TorrentInformation_Comment.Text" xml:space="preserve">
-    <value>Комментарий: </value>
+    <value>Comment:</value>
   </data>
   <data name="TorrentInformation_Date.Text" xml:space="preserve">
-    <value>Дата создания: </value>
+    <value>Date of creation:</value>
   </data>
   <data name="TorrentInformation_Hash.Text" xml:space="preserve">
-    <value>Хеш: </value>
+    <value>Hash:</value>
   </data>
   <data name="TorrentInformation_Name.Text" xml:space="preserve">
-    <value>Имя: </value>
+    <value>Name:</value>
   </data>
   <data name="TorrentInformation_Size.Text" xml:space="preserve">
-    <value>Размер: </value>
+    <value>Size:</value>
   </data>
 </root>

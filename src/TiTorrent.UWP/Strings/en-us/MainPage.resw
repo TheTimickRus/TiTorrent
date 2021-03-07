@@ -118,99 +118,99 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CommandBar_AppBarButton_Add.Label" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Add</value>
   </data>
   <data name="CommandBar_AppBarButton_Delete.Label" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
   <data name="CommandBar_AppBarButton_Pause.Label" xml:space="preserve">
-    <value>Пауза</value>
+    <value>Pause</value>
   </data>
   <data name="CommandBar_AppBarButton_Start.Label" xml:space="preserve">
-    <value>Запустить</value>
+    <value>Start</value>
   </data>
   <data name="CommandBar_AppBarButton_Stop.Label" xml:space="preserve">
-    <value>Остановить</value>
+    <value>Stop</value>
   </data>
   <data name="FilesPivotItem.Header" xml:space="preserve">
-    <value>Файлы</value>
+    <value>Files</value>
   </data>
   <data name="InformationPivotItem.Header" xml:space="preserve">
-    <value>Информация</value>
+    <value>Information</value>
   </data>
   <data name="InformationPivotItem_ActiveTime.Text" xml:space="preserve">
-    <value>Активен: </value>
+    <value>Active: </value>
   </data>
   <data name="InformationPivotItem_Comment.Text" xml:space="preserve">
-    <value>Комментарий: </value>
+    <value>Comment: </value>
   </data>
   <data name="InformationPivotItem_ConnectionCount.Text" xml:space="preserve">
-    <value>Соединений: </value>
+    <value>Connections: </value>
   </data>
   <data name="InformationPivotItem_CreateBy.Text" xml:space="preserve">
-    <value>Создан в: </value>
+    <value>CreateBy: </value>
   </data>
   <data name="InformationPivotItem_DateAdded.Text" xml:space="preserve">
-    <value>Дата добавления: </value>
+    <value>DateAdded: </value>
   </data>
   <data name="InformationPivotItem_DateCompletion.Text" xml:space="preserve">
-    <value>Дата завершения: </value>
+    <value>DateCompletion: </value>
   </data>
   <data name="InformationPivotItem_DateCreate.Text" xml:space="preserve">
-    <value>Дата создания: </value>
+    <value>DateCreate: </value>
   </data>
   <data name="InformationPivotItem_DownloadSize.Text" xml:space="preserve">
-    <value>Загружено: </value>
+    <value>Download Size: </value>
   </data>
   <data name="InformationPivotItem_DownloadSpeed.Text" xml:space="preserve">
-    <value>Загрузка: </value>
+    <value>Download Speed: </value>
   </data>
   <data name="InformationPivotItem_Hash.Text" xml:space="preserve">
-    <value>Хеш: </value>
+    <value>Hash: </value>
   </data>
   <data name="InformationPivotItem_LeftTime.Text" xml:space="preserve">
     <value>Осталось времени: </value>
   </data>
   <data name="InformationPivotItem_MoreExpander.Header" xml:space="preserve">
-    <value>Дополнительно</value>
+    <value>Additional information</value>
   </data>
   <data name="InformationPivotItem_PeersCount.Text" xml:space="preserve">
-    <value>Пиры: </value>
+    <value>Peers: </value>
   </data>
   <data name="InformationPivotItem_PieceCount.Text" xml:space="preserve">
-    <value>Загружено частей: </value>
+    <value>Piece Count: </value>
   </data>
   <data name="InformationPivotItem_SavePath.Text" xml:space="preserve">
-    <value>Путь: </value>
+    <value>Save path: </value>
   </data>
   <data name="InformationPivotItem_SeedsCount.Text" xml:space="preserve">
-    <value>Сиды: </value>
+    <value>Seeds: </value>
   </data>
   <data name="InformationPivotItem_TorrentExpander.Header" xml:space="preserve">
-    <value>Торрент</value>
+    <value>Torrent</value>
   </data>
   <data name="InformationPivotItem_TotalSize.Text" xml:space="preserve">
-    <value>Общий размер: </value>
+    <value>Overall size:</value>
   </data>
   <data name="InformationPivotItem_UploadSize.Text" xml:space="preserve">
-    <value>Отдано: </value>
+    <value>Upload size: </value>
   </data>
   <data name="InformationPivotItem_UploadSpeed.Text" xml:space="preserve">
-    <value>Отдача: </value>
+    <value>Upload speed: </value>
   </data>
   <data name="ListViewItemFlyout_MenuFlyoutItem0.Text" xml:space="preserve">
-    <value>Запустить</value>
+    <value>Start</value>
   </data>
   <data name="ListViewItemFlyout_MenuFlyoutItem1.Text" xml:space="preserve">
-    <value>Пауза</value>
+    <value>Pause</value>
   </data>
   <data name="ListViewItemFlyout_MenuFlyoutItem2.Text" xml:space="preserve">
-    <value>Остановить</value>
+    <value>Stop</value>
   </data>
   <data name="ListViewItemFlyout_MenuFlyoutItem4.Text" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
   <data name="ListViewItemFlyout_MenuFlyoutItem6.Text" xml:space="preserve">
-    <value>Открыть в проводнике</value>
+    <value>Open in File Explorer</value>
   </data>
 </root>
