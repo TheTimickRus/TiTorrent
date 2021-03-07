@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TiTorrent.UWP.Helpers;
+using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Models;
 using TiTorrent.UWP.Services.Dialogs;
 using Windows.ApplicationModel.Core;
@@ -18,7 +19,6 @@ using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using TiTorrent.UWP.Helpers.Extensions;
 
 namespace TiTorrent.UWP.ViewModels
 {
@@ -266,26 +266,22 @@ namespace TiTorrent.UWP.ViewModels
             switch (e.OldState)
             {
                 case TorrentState.Downloading:
-                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
                             if (listViewItem is not null)
                                 ViewModelLocator.Current.DownloadViewModel.TorrentsCollection.Remove(listViewItem);
-
-                            return Task.CompletedTask;
                         });
                     break;
 
                 case TorrentState.Seeding:
-                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
                             if (listViewItem is not null)
                                 ViewModelLocator.Current.UploadViewModel.TorrentsCollection.Remove(listViewItem);
-
-                            return Task.CompletedTask;
                         });
                     break;
             }
@@ -293,26 +289,22 @@ namespace TiTorrent.UWP.ViewModels
             switch (e.NewState)
             {
                 case TorrentState.Downloading:
-                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
                             if (listViewItem is not null && manager.Complete is false)
                                 ViewModelLocator.Current.DownloadViewModel.TorrentsCollection.Add(listViewItem);
-
-                            return Task.CompletedTask;
                         });
                     break;
 
                 case TorrentState.Seeding:
-                    await CoreApplication.MainView.Dispatcher.RunTaskAsync(
+                    await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             var listViewItem = TorrentsCollection.FirstOrDefault(model => manager.InfoHash.ToHex().Equals(model.Hash));
                             if (listViewItem is not null && manager.Complete)
                                 ViewModelLocator.Current.UploadViewModel.TorrentsCollection.Add(listViewItem);
-
-                            return Task.CompletedTask;
                         });
 
                     Log.Instance.Information($"Торрент {manager.Torrent.Name} успешно загружен!");

@@ -2,11 +2,9 @@
 using GalaSoft.MvvmLight.Command;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Services;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
-using Microsoft.Toolkit.Uwp;
 
 namespace TiTorrent.UWP.ViewModels
 {
@@ -47,7 +45,7 @@ namespace TiTorrent.UWP.ViewModels
 
         private static string GetVersionDescription()
         {
-            var appName = "AppDisplayName".GetLocalized();
+            const string appName = "TiTorrent";
             var package = Package.Current;
             var packageId = package.Id;
             var version = packageId.Version;
