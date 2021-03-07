@@ -6,6 +6,7 @@ using TiTorrent.UWP.Helpers.Extensions;
 using TiTorrent.UWP.Services;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp;
 
 namespace TiTorrent.UWP.ViewModels
 {
@@ -41,7 +42,6 @@ namespace TiTorrent.UWP.ViewModels
         public async Task InitializeAsync()
         {
             VersionDescription = GetVersionDescription();
-
             await Task.CompletedTask;
         }
 
