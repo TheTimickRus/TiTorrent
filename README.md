@@ -1,2 +1,4 @@
 # TiTorrent
-Торрент-клиент на базе MonoTorrent
+Torrent client based on the MonoTorrent library
+
+# Screenshots
