@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:TiTorrent.UWP.Converters"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:TiTorrent.UWP.Models"
     Style="{StaticResource PageStyle}"
@@ -14,12 +16,12 @@
         <converters:FullPathToFileNameConverter x:Name="FullPathToFileNameConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="345" />
         </Grid.RowDefinitions>
 
         <CommandBar
@@ -122,11 +124,15 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <controls:GridSplitter Grid.Row="2" Background="{ThemeResource SystemControlAcrylicElementBrush}" Foreground="{ThemeResource SystemControlAcrylicWindowBrush}" />
+        <controls:GridSplitter
+            Grid.Row="2"
+            Background="{ThemeResource SystemControlAcrylicElementBrush}"
+            DoubleTapped="GridSplitter_OnDoubleTapped"
+            Foreground="{ThemeResource SystemControlAcrylicWindowBrush}" />
 
         <Pivot Grid.Row="3" Background="{ThemeResource SystemControlAcrylicElementBrush}">
             <Pivot.Items>
-                <PivotItem Header="Информация">
+                <PivotItem x:Uid="/MainPage/InformationPivotItem">
                     <StackPanel>
                         <ProgressBar
                             Height="23"
@@ -136,9 +142,9 @@
                             Value="{x:Bind ViewModel.SelectedTorrent.Progress, Mode=OneWay}" />
 
                         <controls:Expander
+                            x:Uid="/MainPage/InformationPivotItem_TorrentExpander"
                             Margin="0,5,0,0"
                             HorizontalContentAlignment="Stretch"
-                            Header="Торрент"
                             IsExpanded="True">
 
                             <Grid>
@@ -150,51 +156,51 @@
 
                                 <StackPanel Grid.Column="0" Margin="5" VerticalAlignment="Center">
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Активен: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_ActiveTime" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.ActiveTime, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Загружено: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_DownloadSize" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.DownloadSize, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Загрузка: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_DownloadSpeed" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.DownloadSpeed, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Активен: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_LeftTime" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.LeftTime, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Отдано: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_UploadSize" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.UploadSize, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Отдача: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_UploadSpeed" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.UploadSpeed, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}/s'}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" Margin="5" VerticalAlignment="Center">
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Соединений: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_ConnectionCount" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.ConnectionCount, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Сиды: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_SeedsCount" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.SeedsCount, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Пиры: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_PeersCount" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.PeersCount, Mode=OneWay}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
@@ -202,9 +208,9 @@
                         </controls:Expander>
 
                         <controls:Expander
+                            x:Uid="/MainPage/InformationPivotItem_MoreExpander"
                             Margin="0,0,0,5"
                             HorizontalContentAlignment="Stretch"
-                            Header="Дополнительно"
                             IsExpanded="True">
 
                             <Grid>
@@ -221,27 +227,27 @@
                                     VerticalAlignment="Center">
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Общий размер: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_TotalSize" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.TotalSize, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Дата добавления: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_DateAdded" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.DateAdded, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Хеш: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_Hash" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.Hash, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Путь: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_SavePath" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.SavePath, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Комментарий: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_Comment" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.Comment, Mode=OneWay}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
@@ -253,7 +259,7 @@
                                     VerticalAlignment="Top">
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Загружено частей: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_PieceCount" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock>
                                             <Run Text="{x:Bind ViewModel.MainPivotModel.PieceCount, Mode=OneWay}" />
                                             <Run Text="{x:Bind ViewModel.MainPivotModel.PieceLength, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}({0})'}" />
@@ -261,7 +267,7 @@
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Дата завершения: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_DateCompletion" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.DateCompletion, Mode=OneWay}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
@@ -273,12 +279,12 @@
                                     VerticalAlignment="Top">
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Создан в: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_CreateBy" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.CreateBy, Mode=OneWay}" />
                                     </controls:UniformGrid>
 
                                     <controls:UniformGrid Column="2" Rows="1">
-                                        <TextBlock Margin="0,0,5,0" HorizontalAlignment="Right" Text="Дата создания: " />
+                                        <TextBlock x:Uid="/MainPage/InformationPivotItem_DateCreate" Margin="0,0,5,0" HorizontalAlignment="Right" />
                                         <TextBlock Text="{x:Bind ViewModel.MainPivotModel.DateCreate, Mode=OneWay}" />
                                     </controls:UniformGrid>
                                 </StackPanel>
@@ -287,7 +293,7 @@
                     </StackPanel>
                 </PivotItem>
 
-                <PivotItem Header="Файлы">
+                <PivotItem x:Uid="/MainPage/FilesPivotItem">
                     <TreeView ItemsSource="{x:Bind ViewModel.MainPivotModel.TorrentFiles, Mode=OneWay}">
                         <TreeView.ItemTemplate>
                             <DataTemplate>

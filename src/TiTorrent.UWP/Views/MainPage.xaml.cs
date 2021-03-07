@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Navigation;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using TiTorrent.UWP.ViewModels;
 
 namespace TiTorrent.UWP.Views
@@ -16,6 +18,12 @@ namespace TiTorrent.UWP.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.InitializeAsync();
+        }
+
+
+        private void GridSplitter_OnDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            MainGrid.RowDefinitions[3].Height = new GridLength(345);
         }
     }
 }
